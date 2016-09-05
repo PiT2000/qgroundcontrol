@@ -17,6 +17,10 @@ import QGroundControl.Controls  1.0
 
 /// Native QML top level window
 Item {
+    function showPreMissionView() {
+        mainWindowInner.item.showPreMissionView()
+    }
+
     function showFlyView() {
         mainWindowInner.item.showFlyView()
     }

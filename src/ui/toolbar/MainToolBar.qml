@@ -49,6 +49,7 @@ Rectangle {
     signal showSetupView()
     signal showPlanView()
     signal showFlyView()
+    signal showPreMissionView()
 
     MainToolBarController { id: _controller }
 
@@ -66,6 +67,10 @@ Rectangle {
 
     function checkFlyButton() {
         flyButton.checked = true
+    }
+
+    function checkPreMissionButton() {
+        preMissionButton.checked = true
     }
 
     function getBatteryColor() {
@@ -343,6 +348,16 @@ Rectangle {
             exclusiveGroup:     mainActionGroup
             source:             "/qmlimages/Gears.svg"
             onClicked:          toolBar.showSetupView()
+        }
+
+        QGCToolBarButton {
+            id:                 preMissionButton
+            width:              mainWindow.tbButtonWidth
+            anchors.top:        parent.top
+            anchors.bottom:     parent.bottom
+            exclusiveGroup:     mainActionGroup
+            source:             "/qmlimages/PreMission.svg"
+            onClicked:          toolBar.showPreMissionView()
         }
 
         QGCToolBarButton {

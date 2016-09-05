@@ -68,6 +68,12 @@ QGCView {
         }
     }
 
+    function loadPreMission(fileName) {
+        missionController.loadFromFile(fileName)
+        fitViewportToMissionItems()
+        _currentMissionItem = _visualItems.get(0)
+    }
+
     function updateMapToVehiclePosition() {
         if (_activeVehicle && _activeVehicle.coordinateValid && _activeVehicle.coordinate.isValid && _firstVehiclePosition) {
             _firstVehiclePosition = false

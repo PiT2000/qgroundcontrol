@@ -706,6 +706,11 @@ void QGCApplication::showSetupView(void)
     QMetaObject::invokeMethod(_rootQmlObject(), "showSetupView");
 }
 
+void QGCApplication::showPreMissionView(void)
+{
+    QMetaObject::invokeMethod(_rootQmlObject(), "showPreMissionView");
+}
+
 void QGCApplication::qmlAttemptWindowClose(void)
 {
     QMetaObject::invokeMethod(_rootQmlObject(), "attemptWindowClose");
