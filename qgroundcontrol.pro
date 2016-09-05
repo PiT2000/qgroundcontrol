@@ -22,6 +22,10 @@ include(QGCCommon.pri)
 TARGET   = QGroundControl
 TEMPLATE = app
 
+#Translation QGC
+TRANSLATIONS += translations/qgc_ru.ts
+#End translation QGC
+
 DebugBuild {
     DESTDIR  = $${OUT_PWD}/debug
 } else {
@@ -872,3 +876,6 @@ include(QGCSetup.pri)
 #
 
 include(QGCInstaller.pri)
+
+DISTFILES += \
+    translations/qgc_ru.ts

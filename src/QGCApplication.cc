@@ -195,6 +195,16 @@ QGCApplication::QGCApplication(int &argc, char* argv[], bool unitTesting)
     Q_ASSERT(_app == NULL);
     _app = this;
 
+    //Translation QGC
+    QTranslator *translator;
+    translator = new QTranslator;
+    translator->load("translations/qt_" + QLocale::system().name());
+    _app->installTranslator(translator);
+    translator = new QTranslator;
+    translator->load("translations/qgc_" + QLocale::system().name());
+    _app->installTranslator(translator);
+    //End translation QGC
+
     // This prevents usage of QQuickWidget to fail since it doesn't support native widget siblings
 #ifndef __android__
     setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
