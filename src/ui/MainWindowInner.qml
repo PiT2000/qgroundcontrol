@@ -315,7 +315,10 @@ Item {
 
     Loader {
         id:                 preMissionViewLoader
-        anchors.fill:       parent
+        anchors.left:       parent.left
+        anchors.right:      parent.right
+        anchors.top:        toolBar.bottom
+        anchors.bottom:     parent.bottom
         visible:            false
     }
 
