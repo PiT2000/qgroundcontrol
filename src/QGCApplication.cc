@@ -97,6 +97,8 @@
 #include "QGCMapPolygon.h"
 
 #include "PreMission/PreMissionController.h"
+#include "WeatherStation/WeatherStationController.h"
+#include "WeatherStation/WeatherStationSettingsController.h"
 
 #ifndef __ios__
     #include "SerialLink.h"
@@ -414,7 +416,11 @@ void QGCApplication::_initCommon(void)
     qmlRegisterType<JoystickConfigController>           ("QGroundControl.Controllers", 1, 0, "JoystickConfigController");
     qmlRegisterType<GeoFenceController>                 ("QGroundControl.Controllers", 1, 0, "GeoFenceController");
 
-    qmlRegisterType<PreMissionController>                  ("QGroundControl.Controllers", 1, 0, "PreMissionController");
+    // FOR TSURU
+    qmlRegisterType<PreMissionController>               ("QGroundControl.Controllers", 1, 0, "PreMissionController");
+    qmlRegisterType<WeatherStationController>           ("QGroundControl.Controllers", 1, 0, "WeatherStationController");
+    qmlRegisterType<WeatherStationSettingsController>   ("QGroundControl.Controllers", 1, 0, "WeatherStationSettingsController");
+    // END
 
 #ifndef __mobile__
     qmlRegisterType<ViewWidgetController>           ("QGroundControl.Controllers", 1, 0, "ViewWidgetController");

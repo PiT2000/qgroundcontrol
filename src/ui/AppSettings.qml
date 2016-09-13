@@ -132,6 +132,18 @@ Rectangle {
 
             QGCButton {
                 height:         _buttonHeight
+                text:           qsTr("Weather Station")
+                exclusiveGroup: panelActionGroup
+                onClicked: {
+                    if(__rightPanel.source != "WeatherStationSettings.qml") {
+                        __rightPanel.source = "WeatherStationSettings.qml"
+                    }
+                    checked = true
+                }
+            }
+
+            QGCButton {
+                height:         _buttonHeight
                 text:           qsTr("Console")
                 exclusiveGroup: panelActionGroup
                 onClicked: {
