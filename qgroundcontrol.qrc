@@ -165,6 +165,7 @@
         <file alias="QGroundControl/Controls/OfflineMapButton.qml">src/QmlControls/OfflineMapButton.qml</file>
         <file alias="PX4TuningComponentVTOL.qml">src/AutoPilotPlugins/PX4/PX4TuningComponentVTOL.qml</file>
         <file alias="PreMission.qml">src/PreMission/PreMission.qml</file>
+        <file alias="WeatherStation.qml">src/WeatherStation/WeatherStation.qml</file>
     </qresource>
     <qresource prefix="/json">
         <file alias="MavCmdInfoCommon.json">src/MissionManager/MavCmdInfoCommon.json</file>

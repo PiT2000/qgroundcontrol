@@ -115,6 +115,22 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
         }
 
+        Loader {
+            id: weatherStation
+            height: 100
+            width: parent.width * 0.95
+            anchors.horizontalCenter: parent.horizontalCenter
+            source: "qrc:/qml/WeatherStation.qml"
+        }
+
+        Rectangle {
+            id:                 _spacer0
+            height:             1
+            width:              parent.width * 0.9
+            color:              qgcPal.text
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
         Item {
             width:  parent.width
             height: _valuesWidget.height

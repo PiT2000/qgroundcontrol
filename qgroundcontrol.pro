@@ -335,7 +335,8 @@ HEADERS += \
     src/QmlControls/QGCImageProvider.h \
     src/QtLocationPlugin/QMLControl/QGCMapEngineManager.h \
     src/PositionManager/PositionManager.h \
-    src/PreMission/PreMissionController.h
+    src/PreMission/PreMissionController.h \
+    src/WeatherStation/WeatherStationController.h
 
 AndroidBuild {
 HEADERS += \
@@ -498,7 +499,8 @@ SOURCES += \
     src/QtLocationPlugin/QMLControl/QGCMapEngineManager.cc \
     src/PositionManager/SimulatedPosition.cc \
     src/PositionManager/PositionManager.cpp \
-    src/PreMission/PreMissionController.cpp
+    src/PreMission/PreMissionController.cpp \
+    src/WeatherStation/WeatherStationController.cpp
 
 DebugBuild {
 SOURCES += \
