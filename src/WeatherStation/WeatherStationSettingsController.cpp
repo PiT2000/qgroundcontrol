@@ -20,5 +20,6 @@ QStringList WeatherStationSettingsController::portNameList()
     {
         _portNameList.append(info.portName());
     }
-     return _portNameList;
+    qDebug()<<_portNameList;
+    return _portNameList;
 }

@@ -12,17 +12,24 @@ public:
     WeatherStationSettingsController(QObject *parent = 0);
     ~WeatherStationSettingsController();
 
-    Q_PROPERTY( QStringList portNameList READ portNameList  NOTIFY portNameListChanged )
+    Q_PROPERTY( QString portName READ portName WRITE setPortName NOTIFY portNameChanged)
 
-    QStringList portNameList (void);
+
+    Q_PROPERTY( QStringList portNameList READ portNameList NOTIFY portNameListChanged )
+
+    QString     portName        (void) { return _portName; }
+    QStringList portNameList    (void);
 
 private:
+    QString     _portName;
     QStringList _portNameList;
 
 public slots:
+    void setPortName( QString values ) { _portName = values; }
 
 signals:
-    void portNameListChanged (QStringList list);
+    void portNameChanged     ( QString      str );
+    void portNameListChanged ( QStringList  list );
 };
 
 #endif // WEATHERSTATIONSETTINGSCONTROLLER_H
