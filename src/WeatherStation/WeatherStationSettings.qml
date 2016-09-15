@@ -75,13 +75,13 @@ QGCView {
                                 model: _portNameList
                                 currentIndex: 0
                                 Component.onCompleted: {}
-                                onActivated: {}
+                                onActivated: { weatherStationSettingsController.portName = _portNameList[curentIndex]}
                             }
                         }
                     }
                 }
                 //-----------------------------------------------------------------
-                //-- Temperature range
+                //-- Meteo critical
                 Item {
                     width:              qgcView.width * 0.8
                     height:             temperatureRangeLabel.height
@@ -89,7 +89,7 @@ QGCView {
                     anchors.horizontalCenter: parent.horizontalCenter
                     QGCLabel {
                         id:             temperatureRangeLabel
-                        text:           qsTr("Temperature range")
+                        text:           qsTr("Critical range")
                         font.family:    ScreenTools.demiboldFontFamily
                     }
                 }
@@ -108,7 +108,7 @@ QGCView {
                             QGCLabel {
                                 anchors.verticalCenter: parent.verticalCenter
                                 font.family:    ScreenTools.demiboldFontFamily
-                                text:           qsTr("Temperature max: ")
+                                text:           qsTr("Critical temperature max: ")
                             }
                             Row {
                                 spacing:    ScreenTools.defaultFontPixelWidth / 2
@@ -117,23 +117,37 @@ QGCView {
                                     width:  height
                                     height: temperatureRangeMaxEdit.height
                                     text:   "-"
-                                    onClicked: {}
+                                    onClicked: {
+                                        if(weatherStationSettingsController.temperatureMax > -25.0) {
+                                            weatherStationSettingsController.temperatureMax = weatherStationSettingsController.temperatureMax - 1
+                                        }
+                                    }
                                 }
                                 QGCTextField {
                                     id:             temperatureRangeMaxEdit
                                     width:          _editFieldWidth - (height * 2) - (ScreenTools.defaultFontPixelWidth * 2)
-                                    text:           QGroundControl.baseFontPointSize
+                                    text:           weatherStationSettingsController.temperatureMax
                                     showUnits:      true
                                     unitsLabel:     "C"
                                     maximumLength:  6
-                                    validator:      DoubleValidator {bottom: 6.0; top: 48.0; decimals: 2;}
-                                    onEditingFinished: {}
+                                    validator:      DoubleValidator {bottom: -25; top: 50; decimals: 0;}
+                                    onEditingFinished: {
+                                        var values = parseFloat(text)
+                                        if(values >= -25.0 && values <= 50.0)
+                                        {
+                                            weatherStationSettingsController.temperatureMax = values
+                                        }
+                                    }
                                 }
                                 QGCButton {
                                     width:  height
                                     height: temperatureRangeMaxEdit.height
                                     text:   "+"
-                                    onClicked: {}
+                                    onClicked: {
+                                        if(weatherStationSettingsController.temperatureMax < 50.0) {
+                                            weatherStationSettingsController.temperatureMax = weatherStationSettingsController.temperatureMax + 1
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -142,7 +156,7 @@ QGCView {
                             QGCLabel {
                                 anchors.verticalCenter: parent.verticalCenter
                                 font.family:    ScreenTools.demiboldFontFamily
-                                text:           qsTr("Temperature min: ")
+                                text:           qsTr("Critical temperature min: ")
                             }
                             Row {
                                 spacing:    ScreenTools.defaultFontPixelWidth / 2
@@ -151,175 +165,46 @@ QGCView {
                                     width:  height
                                     height: temperatureRangeMinEdit.height
                                     text:   "-"
-                                    onClicked: {}
+                                    onClicked: {
+                                        if(weatherStationSettingsController.temperatureMin > -25.0) {
+                                            weatherStationSettingsController.temperatureMin = weatherStationSettingsController.temperatureMin - 1
+                                        }
+                                    }
                                 }
                                 QGCTextField {
                                     id:             temperatureRangeMinEdit
                                     width:          _editFieldWidth - (height * 2) - (ScreenTools.defaultFontPixelWidth * 2)
-                                    text:           QGroundControl.baseFontPointSize
+                                    text:           weatherStationSettingsController.temperatureMin
                                     showUnits:      true
                                     unitsLabel:     "C"
                                     maximumLength:  6
-                                    validator:      DoubleValidator {bottom: 6.0; top: 48.0; decimals: 2;}
-                                    onEditingFinished: {}
+                                    validator:      DoubleValidator {bottom: -25.0; top: 50.0; decimals: 0;}
+                                    onEditingFinished: {
+                                        var values = parseFloat(text)
+                                        if(values >= -25.0 && values <= 50.0)
+                                        {
+                                            weatherStationSettingsController.temperatureMin = values
+                                        }
+                                    }
                                 }
                                 QGCButton {
                                     width:  height
                                     height: temperatureRangeMinEdit.height
                                     text:   "+"
-                                    onClicked: {}
+                                    onClicked: {
+                                        if(weatherStationSettingsController.temperatureMin < 50.0) {
+                                            weatherStationSettingsController.temperatureMin = weatherStationSettingsController.temperatureMin + 1
+                                        }
+                                    }
                                 }
                             }
                         }
-                    }
-                }
-                //-----------------------------------------------------------------
-                //-- Pressure range
-                Item {
-                    width:              qgcView.width * 0.8
-                    height:             pressureRangeLabel.height
-                    anchors.margins:    ScreenTools.defaultFontPixelWidth
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    QGCLabel {
-                        id:             pressureRangeLabel
-                        text:           qsTr("Pressure range")
-                        font.family:    ScreenTools.demiboldFontFamily
-                    }
-                }
-                Rectangle {
-                    height:         pressureRangeCol.height + (ScreenTools.defaultFontPixelHeight * 2)
-                    width:          qgcView.width * 0.8
-                    color:          qgcPal.windowShade
-                    anchors.margins: ScreenTools.defaultFontPixelWidth
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    Column {
-                        id:         pressureRangeCol
-                        spacing:    ScreenTools.defaultFontPixelWidth
-                        anchors.centerIn: parent
                         Row {
                             spacing: ScreenTools.defaultFontPixelWidth
                             QGCLabel {
                                 anchors.verticalCenter: parent.verticalCenter
                                 font.family:    ScreenTools.demiboldFontFamily
-                                text:           qsTr("Pressure min: ")
-                            }
-                            Row {
-                                spacing:    ScreenTools.defaultFontPixelWidth / 2
-                                anchors.verticalCenter: parent.verticalCenter
-                                QGCButton {
-                                    width:  height
-                                    height: pressureRangeMaxEdit.height
-                                    text:   "-"
-                                    onClicked: {}
-                                }
-                                QGCTextField {
-                                    id:             pressureRangeMaxEdit
-                                    width:          _editFieldWidth - (height * 2) - (ScreenTools.defaultFontPixelWidth * 2)
-                                    text:           QGroundControl.baseFontPointSize
-                                    showUnits:      true
-                                    unitsLabel:     "mbar"
-                                    maximumLength:  6
-                                    validator:      DoubleValidator {bottom: 6.0; top: 48.0; decimals: 2;}
-                                    onEditingFinished: {}
-                                }
-                                QGCButton {
-                                    width:  height
-                                    height: pressureRangeMaxEdit.height
-                                    text:   "+"
-                                    onClicked: {}
-                                }
-                            }
-                        }
-                    }
-                }
-                //-----------------------------------------------------------------
-                //-- Humidity range
-                Item {
-                    width:              qgcView.width * 0.8
-                    height:             humidityRangeLabel.height
-                    anchors.margins:    ScreenTools.defaultFontPixelWidth
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    QGCLabel {
-                        id:             humidityRangeLabel
-                        text:           qsTr("Humidity range")
-                        font.family:    ScreenTools.demiboldFontFamily
-                    }
-                }
-                Rectangle {
-                    height:         humidityRangeCol.height + (ScreenTools.defaultFontPixelHeight * 2)
-                    width:          qgcView.width * 0.8
-                    color:          qgcPal.windowShade
-                    anchors.margins: ScreenTools.defaultFontPixelWidth
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    Column {
-                        id:         humidityRangeCol
-                        spacing:    ScreenTools.defaultFontPixelWidth
-                        anchors.centerIn: parent
-                        Row {
-                            spacing: ScreenTools.defaultFontPixelWidth
-                            QGCLabel {
-                                anchors.verticalCenter: parent.verticalCenter
-                                font.family:    ScreenTools.demiboldFontFamily
-                                text:           qsTr("Humidity max: ")
-                            }
-                            Row {
-                                spacing:    ScreenTools.defaultFontPixelWidth / 2
-                                anchors.verticalCenter: parent.verticalCenter
-                                QGCButton {
-                                    width:  height
-                                    height: humidityRangeMaxEdit.height
-                                    text:   "-"
-                                    onClicked: {}
-                                }
-                                QGCTextField {
-                                    id:             humidityRangeMaxEdit
-                                    width:          _editFieldWidth - (height * 2) - (ScreenTools.defaultFontPixelWidth * 2)
-                                    text:           QGroundControl.baseFontPointSize
-                                    showUnits:      true
-                                    unitsLabel:     "%"
-                                    maximumLength:  6
-                                    validator:      DoubleValidator {bottom: 6.0; top: 48.0; decimals: 2;}
-                                    onEditingFinished: {}
-                                }
-                                QGCButton {
-                                    width:  height
-                                    height: humidityRangeMaxEdit.height
-                                    text:   "+"
-                                    onClicked: {}
-                                }
-                            }
-                        }
-                    }
-                }
-                //-----------------------------------------------------------------
-                //-- Precipitation range
-                Item {
-                    width:              qgcView.width * 0.8
-                    height:             precipitationRangeLabel.height
-                    anchors.margins:    ScreenTools.defaultFontPixelWidth
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    QGCLabel {
-                        id:             precipitationRangeLabel
-                        text:           qsTr("Precipitation range")
-                        font.family:    ScreenTools.demiboldFontFamily
-                    }
-                }
-                Rectangle {
-                    height:         precipitationRangeCol.height + (ScreenTools.defaultFontPixelHeight * 2)
-                    width:          qgcView.width * 0.8
-                    color:          qgcPal.windowShade
-                    anchors.margins: ScreenTools.defaultFontPixelWidth
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    Column {
-                        id:         precipitationRangeCol
-                        spacing:    ScreenTools.defaultFontPixelWidth
-                        anchors.centerIn: parent
-                        Row {
-                            spacing: ScreenTools.defaultFontPixelWidth
-                            QGCLabel {
-                                anchors.verticalCenter: parent.verticalCenter
-                                font.family:    ScreenTools.demiboldFontFamily
-                                text:           qsTr("Precipitation max: ")
+                                text:           qsTr("Critical precipitation max: ")
                             }
                             Row {
                                 spacing:    ScreenTools.defaultFontPixelWidth / 2
@@ -328,57 +213,46 @@ QGCView {
                                     width:  height
                                     height: precipitationRangeMaxEdit.height
                                     text:   "-"
-                                    onClicked: {}
+                                    onClicked: {
+                                        if(weatherStationSettingsController.precipitationMax > 0.0) {
+                                            weatherStationSettingsController.precipitationMax = weatherStationSettingsController.precipitationMax - 1
+                                        }
+                                    }
                                 }
                                 QGCTextField {
                                     id:             precipitationRangeMaxEdit
                                     width:          _editFieldWidth - (height * 2) - (ScreenTools.defaultFontPixelWidth * 2)
-                                    text:           QGroundControl.baseFontPointSize
+                                    text:           weatherStationSettingsController.precipitationMax
                                     showUnits:      true
                                     unitsLabel:     "mm/s"
                                     maximumLength:  6
-                                    validator:      DoubleValidator {bottom: 6.0; top: 48.0; decimals: 2;}
-                                    onEditingFinished: {}
+                                    validator:      DoubleValidator {bottom: 0.0; top: 100.0; decimals: 0;}
+                                    onEditingFinished: {
+                                        var values = parseFloat(text)
+                                        if(values >= 0.0 && values <= 100.0)
+                                        {
+                                            weatherStationSettingsController.precipitationMax = values
+                                        }
+                                    }
                                 }
                                 QGCButton {
                                     width:  height
                                     height: precipitationRangeMaxEdit.height
                                     text:   "+"
-                                    onClicked: {}
+                                    onClicked: {
+                                        if(weatherStationSettingsController.precipitationMax < 100.0) {
+                                            weatherStationSettingsController.precipitationMax = weatherStationSettingsController.precipitationMax + 1
+                                        }
+                                    }
                                 }
                             }
                         }
-                    }
-                }
-                //-----------------------------------------------------------------
-                //-- Wind Speed range
-                Item {
-                    width:              qgcView.width * 0.8
-                    height:             windSpeedRangeLabel.height
-                    anchors.margins:    ScreenTools.defaultFontPixelWidth
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    QGCLabel {
-                        id:             windSpeedRangeLabel
-                        text:           qsTr("Wind speed range")
-                        font.family:    ScreenTools.demiboldFontFamily
-                    }
-                }
-                Rectangle {
-                    height:         windSpeedRangeCol.height + (ScreenTools.defaultFontPixelHeight * 2)
-                    width:          qgcView.width * 0.8
-                    color:          qgcPal.windowShade
-                    anchors.margins: ScreenTools.defaultFontPixelWidth
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    Column {
-                        id:         windSpeedRangeCol
-                        spacing:    ScreenTools.defaultFontPixelWidth
-                        anchors.centerIn: parent
                         Row {
                             spacing: ScreenTools.defaultFontPixelWidth
                             QGCLabel {
                                 anchors.verticalCenter: parent.verticalCenter
                                 font.family:    ScreenTools.demiboldFontFamily
-                                text:           qsTr("Wind speed: ")
+                                text:           qsTr("Critical wind speed: ")
                             }
                             Row {
                                 spacing:    ScreenTools.defaultFontPixelWidth / 2
@@ -387,23 +261,37 @@ QGCView {
                                     width:  height
                                     height: windSpeedRangeMaxEdit.height
                                     text:   "-"
-                                    onClicked: {}
+                                    onClicked: {
+                                        if(weatherStationSettingsController.windSpeedMax > 0.0) {
+                                            weatherStationSettingsController.windSpeedMax = weatherStationSettingsController.windSpeedMax - 1
+                                        }
+                                    }
                                 }
                                 QGCTextField {
                                     id:             windSpeedRangeMaxEdit
                                     width:          _editFieldWidth - (height * 2) - (ScreenTools.defaultFontPixelWidth * 2)
-                                    text:           QGroundControl.baseFontPointSize
+                                    text:           weatherStationSettingsController.windSpeedMax
                                     showUnits:      true
                                     unitsLabel:     "m/s"
                                     maximumLength:  6
-                                    validator:      DoubleValidator {bottom: 6.0; top: 48.0; decimals: 2;}
-                                    onEditingFinished: {}
+                                    validator:      DoubleValidator {bottom: 0.0; top: 50.0; decimals: 0;}
+                                    onEditingFinished: {
+                                        var values = parseFloat(text)
+                                        if(values >= 0.0 && values <= 50.0)
+                                        {
+                                            weatherStationSettingsController.windSpeedMax = values
+                                        }
+                                    }
                                 }
                                 QGCButton {
                                     width:  height
                                     height: windSpeedRangeMaxEdit.height
                                     text:   "+"
-                                    onClicked: {}
+                                    onClicked: {
+                                        if(weatherStationSettingsController.windSpeedMax < 50.0) {
+                                            weatherStationSettingsController.windSpeedMax = weatherStationSettingsController.windSpeedMax + 1
+                                        }
+                                    }
                                 }
                             }
                         }
