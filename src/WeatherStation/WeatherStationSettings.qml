@@ -74,8 +74,18 @@ QGCView {
                                 width: _labelWidth
                                 model: _portNameList
                                 currentIndex: 0
-                                Component.onCompleted: {}
-                                onActivated: { weatherStationSettingsController.portName = _portNameList[curentIndex]}
+                                Component.onCompleted: {
+                                    var index = portName.find(weatherStationSettingsController.portName)
+                                    if (index >= 0) {
+                                        portName.currentIndex = index
+                                    }
+                                }
+                                onActivated: {
+                                    if (index != -1) {
+                                        currentIndex = index
+                                        weatherStationSettingsController.portName = model[index]
+                                    }
+                                }
                             }
                         }
                     }

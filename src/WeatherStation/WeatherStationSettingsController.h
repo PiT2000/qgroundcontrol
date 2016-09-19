@@ -40,7 +40,7 @@ private:
     qreal _windSpeedMax;
 
 public slots:
-    void setPortName        ( QString values ) { _portName = values; }
+    void setPortName        ( QString values );
 
     void setTemperatureMax  (qreal values);
     void setTemperatureMin  (qreal values);

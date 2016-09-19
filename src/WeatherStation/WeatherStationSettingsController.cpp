@@ -10,6 +10,7 @@ WeatherStationSettingsController::WeatherStationSettingsController(QObject *pare
 {
     QSettings settings;
     settings.beginGroup("WEATHER_STATION");
+    _portName           = settings.value("PortName", "").toString();
     _temperatureMax     = settings.value("temperatureMax", 25.0).toReal();
     _temperatureMin     = settings.value("temperatureMin", 0.0).toReal();
     _precipitationMax   = settings.value("precipitationMax", 15.0).toReal();
@@ -25,13 +26,21 @@ WeatherStationSettingsController::~WeatherStationSettingsController()
 QStringList WeatherStationSettingsController::portNameList()
 {
     _portNameList.clear();
-    _portNameList.append("Select Port");
     QList<QSerialPortInfo> list = QSerialPortInfo::availablePorts();
     foreach ( QSerialPortInfo info, list)
     {
         _portNameList.append(info.portName());
     }
     return _portNameList;
+}
+
+void WeatherStationSettingsController::setPortName(QString values)
+{
+    _portName = values;
+    QSettings settings;
+    settings.beginGroup("WEATHER_STATION");
+    settings.setValue("PortName", values);
+    emit portNameChanged(values);
 }
 
 void WeatherStationSettingsController::setTemperatureMax(qreal values)
