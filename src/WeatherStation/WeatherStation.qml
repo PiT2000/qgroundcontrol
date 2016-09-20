@@ -11,6 +11,7 @@ import QGroundControl.Controllers   1.0
 Rectangle {
     id:     weatherStation
     color:  qgcPal.window
+    height: weatherStationController.readyRead ? _defaultTextHeight*6 :message.height + errorMessage.height
 
     QGCPalette { id: qgcPal }
     WeatherStationController {
@@ -19,7 +20,6 @@ Rectangle {
 
     readonly property real _defaultTextHeight:  ScreenTools.defaultFontPixelHeight
     readonly property real _defaultTextWidth:   ScreenTools.defaultFontPixelWidth
-    readonly property real _fontSize:           ScreenTools.mediumFontPointSize
     readonly property real _horizontalMargin:   _defaultTextWidth / 2
     readonly property real _verticalMargin:     _defaultTextHeight / 2
     readonly property real _buttonHeight:       ScreenTools.isTinyScreen ? ScreenTools.defaultFontPixelHeight * 3 : ScreenTools.defaultFontPixelHeight * 2
@@ -41,19 +41,20 @@ Rectangle {
         horizontalAlignment:Text.AlignHCenter
         wrapMode:           Text.WordWrap
         text:               qsTr("No connect")
-        visible: !weatherStationController.readyRead
+        visible:            !weatherStationController.readyRead
     }
     QGCLabel {
-        id:                 errorMaage
+        id:                 errorMessage
         width:              parent.width
         anchors.top:        message.bottom
         verticalAlignment:  Text.AlignVCenter
         horizontalAlignment:Text.AlignHCenter
         wrapMode:           Text.WordWrap
         text:               weatherStationController.portError
-        visible: !weatherStationController.readyRead
+        visible:            !weatherStationController.readyRead
     }
     GridLayout {
+        id:             weatherGrid
         columns:        3
         width:          parent.width
         height:         parent.height

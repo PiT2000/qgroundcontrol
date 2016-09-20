@@ -117,7 +117,6 @@ Item {
 
         Loader {
             id: weatherStation
-            height: 100
             width: parent.width * 0.95
             anchors.horizontalCenter: parent.horizontalCenter
             source: "qrc:/qml/WeatherStation.qml"
