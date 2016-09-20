@@ -26,6 +26,7 @@ WeatherStationSettingsController::~WeatherStationSettingsController()
 QStringList WeatherStationSettingsController::portNameList()
 {
     _portNameList.clear();
+    _portNameList.append(tr(""));
     QList<QSerialPortInfo> list = QSerialPortInfo::availablePorts();
     foreach ( QSerialPortInfo info, list)
     {

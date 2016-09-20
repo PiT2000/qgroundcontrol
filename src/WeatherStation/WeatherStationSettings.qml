@@ -78,7 +78,6 @@ QGCView {
                                     }
                                 }
                                 onActivated: {
-                                    index
                                     if (index != -1) {
                                         currentIndex = index
                                         weatherStationSettingsController.portName = model[index]
