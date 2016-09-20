@@ -18,6 +18,5 @@ void PreMissionController::loadFileList()
     dir.setNameFilters(QStringList("*.mission"));
     _fileList = dir.entryList();
     _preMissionPath = dir.path();
-    qDebug()<<_preMissionPath;
 }
 
