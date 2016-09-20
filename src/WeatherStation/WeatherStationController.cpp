@@ -39,6 +39,14 @@ void WeatherStationController::openPort()
             setReadyRead( false );
             _port->close();
         }
+        if(_port->portName() != _portName)
+        {
+            disconnect( _port,  SIGNAL  ( readyRead () ),
+                        this,   SLOT    ( readData  () ));
+            setPortError(  _portName+": "+_port->errorString() );
+            setReadyRead( false );
+            _port->close();
+        }
     }
     else
     {//порт закрыт
