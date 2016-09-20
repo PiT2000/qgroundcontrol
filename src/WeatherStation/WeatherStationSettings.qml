@@ -19,8 +19,6 @@ QGCView {
     property real _labelWidth:                  ScreenTools.defaultFontPixelWidth * 15
     property real _editFieldWidth:              ScreenTools.defaultFontPixelWidth * 30
 
-    readonly property var _portNameList: weatherStationSettingsController.portNameList
-
     WeatherStationSettingsController {
         id: weatherStationSettingsController
     }
@@ -72,8 +70,7 @@ QGCView {
                             QGCComboBox {
                                 id: portName
                                 width: _labelWidth
-                                model: _portNameList
-                                currentIndex: 0
+                                model: weatherStationSettingsController.portNameList
                                 Component.onCompleted: {
                                     var index = portName.find(weatherStationSettingsController.portName)
                                     if (index >= 0) {
@@ -81,6 +78,7 @@ QGCView {
                                     }
                                 }
                                 onActivated: {
+                                    index
                                     if (index != -1) {
                                         currentIndex = index
                                         weatherStationSettingsController.portName = model[index]

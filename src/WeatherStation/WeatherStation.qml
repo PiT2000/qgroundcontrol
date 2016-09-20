@@ -13,6 +13,9 @@ Rectangle {
     color:  qgcPal.window
 
     QGCPalette { id: qgcPal }
+    WeatherStationController {
+        id: weatherStationController
+    }
 
     readonly property real _defaultTextHeight:  ScreenTools.defaultFontPixelHeight
     readonly property real _defaultTextWidth:   ScreenTools.defaultFontPixelWidth
@@ -21,105 +24,112 @@ Rectangle {
     readonly property real _verticalMargin:     _defaultTextHeight / 2
     readonly property real _buttonHeight:       ScreenTools.isTinyScreen ? ScreenTools.defaultFontPixelHeight * 3 : ScreenTools.defaultFontPixelHeight * 2
     readonly property real _buttonWidth:        ScreenTools.defaultFontPixelWidth * 10
+
+    readonly property real _temperature:        weatherStationController.temperature
+    readonly property real _pressure:           weatherStationController.pressure
+    readonly property real _relativeHumidity:   weatherStationController.relativeHumidity
+    readonly property real _precipitation:      weatherStationController.precipitation
+    readonly property real _windDirection:      weatherStationController.windDirection
+    readonly property real _windSpeed:          weatherStationController.windSpeed
+
+
     QGCLabel {
-        id:                 title
+        id:                 message
+        width:              parent.width
         anchors.top:        parent.top
-        anchors.left:       parent.left
-        anchors.right:      parent.right
-        font.pointSize:     _fontSize
         verticalAlignment:  Text.AlignVCenter
         horizontalAlignment:Text.AlignHCenter
         wrapMode:           Text.WordWrap
-        text:               qsTr("Weather station")
+        text:               qsTr("No connect")
+        visible: !weatherStationController.readyRead
+    }
+    QGCLabel {
+        id:                 errorMaage
+        width:              parent.width
+        anchors.top:        message.bottom
+        verticalAlignment:  Text.AlignVCenter
+        horizontalAlignment:Text.AlignHCenter
+        wrapMode:           Text.WordWrap
+        text:               weatherStationController.portError
+        visible: !weatherStationController.readyRead
     }
     GridLayout {
-        columns: 3
-        width: parent.width
-        anchors.top: title.bottom
+        columns:        3
+        width:          parent.width
+        height:         parent.height
+        visible:        weatherStationController.readyRead
 
         QGCLabel {
-            font.pointSize:     _fontSize
             verticalAlignment:  Text.AlignVCenter
             horizontalAlignment:Text.AlignHCenter
             wrapMode:           Text.WordWrap
             text:               qsTr("Temp")
         }
         QGCLabel {
-            font.pointSize:     _fontSize
             verticalAlignment:  Text.AlignVCenter
             horizontalAlignment:Text.AlignHCenter
             wrapMode:           Text.WordWrap
             text:               qsTr("Pres")
         }
         QGCLabel {
-            font.pointSize:     _fontSize
             verticalAlignment:  Text.AlignVCenter
             horizontalAlignment:Text.AlignHCenter
             wrapMode:           Text.WordWrap
             text:               qsTr("Rh")
         }
         QGCLabel {
-            font.pointSize:     _fontSize
             verticalAlignment:  Text.AlignVCenter
             horizontalAlignment:Text.AlignHCenter
             wrapMode:           Text.WordWrap
-            text:               qsTr("00")
+            text:               _temperature
         }
         QGCLabel {
-            font.pointSize:     _fontSize
             verticalAlignment:  Text.AlignVCenter
             horizontalAlignment:Text.AlignHCenter
             wrapMode:           Text.WordWrap
-            text:               qsTr("00")
+            text:               _pressure
         }
         QGCLabel {
-            font.pointSize:     _fontSize
             verticalAlignment:  Text.AlignVCenter
             horizontalAlignment:Text.AlignHCenter
             wrapMode:           Text.WordWrap
-            text:               qsTr("00")
+            text:               _relativeHumidity
         }
         QGCLabel {
-            font.pointSize:     _fontSize
             verticalAlignment:  Text.AlignVCenter
             horizontalAlignment:Text.AlignHCenter
             wrapMode:           Text.WordWrap
             text:               qsTr("Prec")
         }
         QGCLabel {
-            font.pointSize:     _fontSize
             verticalAlignment:  Text.AlignVCenter
             horizontalAlignment:Text.AlignHCenter
             wrapMode:           Text.WordWrap
             text:               qsTr("Wind")
         }
         QGCLabel {
-            font.pointSize:     _fontSize
             verticalAlignment:  Text.AlignVCenter
             horizontalAlignment:Text.AlignHCenter
             wrapMode:           Text.WordWrap
             text:               qsTr("Wind spd")
         }
         QGCLabel {
-            font.pointSize:     _fontSize
             verticalAlignment:  Text.AlignVCenter
             horizontalAlignment:Text.AlignHCenter
             wrapMode:           Text.WordWrap
-            text:               qsTr("False")
+            text:               _precipitation
         }
         QGCLabel {
-            font.pointSize:     _fontSize
             verticalAlignment:  Text.AlignVCenter
             horizontalAlignment:Text.AlignHCenter
             wrapMode:           Text.WordWrap
-            text:               qsTr("00")
+            text:               _windDirection
         }
         QGCLabel {
-            font.pointSize:     _fontSize
             verticalAlignment:  Text.AlignVCenter
             horizontalAlignment:Text.AlignHCenter
             wrapMode:           Text.WordWrap
-            text:               qsTr("00")
+            text:               _windSpeed
         }
     }
 }

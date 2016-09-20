@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QSerialPort>
 #include <QSerialPortInfo>
+#include <QDebug>
 
 class WeatherStationSettingsController : public QObject
 {
@@ -30,22 +31,13 @@ public:
     qreal precipitationMax  (void) { return _precipitationMax;  }
     qreal windSpeedMax      (void) { return _windSpeedMax;      }
 
-private:
-    QString     _portName;
-    QStringList _portNameList;
-
-    qreal _temperatureMax;
-    qreal _temperatureMin;
-    qreal _precipitationMax;
-    qreal _windSpeedMax;
-
 public slots:
     void setPortName        ( QString values );
 
-    void setTemperatureMax  (qreal values);
-    void setTemperatureMin  (qreal values);
-    void setPrecipitationMax(qreal values);
-    void setWindSpeedMax    (qreal values);
+    void setTemperatureMax  ( qreal values );
+    void setTemperatureMin  ( qreal values );
+    void setPrecipitationMax( qreal values );
+    void setWindSpeedMax    ( qreal values );
 
 signals:
     void portNameChanged     ( QString      str );
@@ -55,6 +47,15 @@ signals:
     void temperatureMinChanged      ( qreal values );
     void precipitationMaxChanged    ( qreal values );
     void windSpeedMaxChanged        ( qreal values );
+
+private:
+    QString     _portName;
+    QStringList _portNameList;
+
+    qreal _temperatureMax;
+    qreal _temperatureMin;
+    qreal _precipitationMax;
+    qreal _windSpeedMax;
 };
 
 #endif // WEATHERSTATIONSETTINGSCONTROLLER_H

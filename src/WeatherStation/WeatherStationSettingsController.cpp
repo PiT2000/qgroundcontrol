@@ -36,11 +36,14 @@ QStringList WeatherStationSettingsController::portNameList()
 
 void WeatherStationSettingsController::setPortName(QString values)
 {
-    _portName = values;
-    QSettings settings;
-    settings.beginGroup("WEATHER_STATION");
-    settings.setValue("PortName", values);
-    emit portNameChanged(values);
+    if(_portName != values)
+    {
+        _portName = values;
+        QSettings settings;
+        settings.beginGroup("WEATHER_STATION");
+        settings.setValue("PortName", _portName);
+        emit portNameChanged(_portName);
+    }
 }
 
 void WeatherStationSettingsController::setTemperatureMax(qreal values)
