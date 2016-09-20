@@ -203,7 +203,7 @@ QGCApplication::QGCApplication(int &argc, char* argv[], bool unitTesting)
     QTranslator *translator;
     translator = new QTranslator;
     translator->load("translations/qt_" + QLocale::system().name());
-//    _app->installTranslator(translator);
+    _app->installTranslator(translator);
     translator = new QTranslator;
     translator->load("translations/qgc_" + QLocale::system().name());
     _app->installTranslator(translator);
