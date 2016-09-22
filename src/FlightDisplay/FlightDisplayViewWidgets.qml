@@ -55,6 +55,16 @@ Item {
         id: _mapTypeButtonsExclusiveGroup
     }
 
+    ExclusiveGroup {
+        id: _pause
+    }
+    ExclusiveGroup {
+        id: _stop
+    }
+    ExclusiveGroup {
+        id: _photo
+    }
+
     //-- Map warnings
     Column {
         anchors.horizontalCenter:   parent.horizontalCenter
@@ -159,6 +169,67 @@ Item {
         spacing:            ScreenTools.defaultFontPixelHeight
         visible:            _mainIsMap
 
+        //-- Pause
+        RoundButton {
+            id:                 pauseButton
+            visible:            !ScreenTools.isTinyScreen && _mainIsMap && _activeVehicle
+            buttonImage:        "/res/Pause"
+            z:                  QGroundControl.zOrderWidgets
+            exclusiveGroup:     _pause
+            lightBorders:       _lightWidgetBorders
+            onClicked: {
+                if( QGroundControl.multiVehicleManager.activeVehicle.flightMode == "Manual") {
+                    QGroundControl.multiVehicleManager.activeVehicle.flightMode = "Stabilized"
+                    checked = true
+                }
+                else if (QGroundControl.multiVehicleManager.activeVehicle.flightMode = "Stabilized") {
+                    QGroundControl.multiVehicleManager.activeVehicle.flightMode = "Manual"
+                    checked = false
+                }
+            }
+        }
+        //-- Stop
+        RoundButton {
+            id:                 stopButton
+            visible:            !ScreenTools.isTinyScreen && _mainIsMap && _activeVehicle
+            buttonImage:        "/res/Stop"
+            z:                  QGroundControl.zOrderWidgets
+            exclusiveGroup:     _stop
+            lightBorders:       _lightWidgetBorders
+            onClicked: {
+                if( QGroundControl.multiVehicleManager.activeVehicle.flightMode == "Manual") {
+                    QGroundControl.multiVehicleManager.activeVehicle.flightMode = "Return"
+                    checked = false
+                    pauseButton.checked  = false
+                    pauseButton.enabeled = false
+                }
+                else if (QGroundControl.multiVehicleManager.activeVehicle.flightMode == "Return") {
+                    QGroundControl.multiVehicleManager.activeVehicle.flightMode = "Manual"
+                    checked = true
+                    pauseButton.checked  = false
+                    pauseButton.enabeled = true
+                }
+            }
+        }
+        //-- Screen shoot
+        RoundButton {
+            id:                 photoButton
+            visible:            !ScreenTools.isTinyScreen && _mainIsMap && _activeVehicle
+            buttonImage:        "/qmlimages/CameraComponentIcon.png"
+            z:                  QGroundControl.zOrderWidgets
+            exclusiveGroup:     _photo
+            lightBorders:       _lightWidgetBorders
+            onClicked: {
+                if( QGroundControl.multiVehicleManager.activeVehicle.flightMode == "Manual") {
+                    QGroundControl.multiVehicleManager.activeVehicle.flightMode = "Return"
+                    checked = false
+                }
+                else if (QGroundControl.multiVehicleManager.activeVehicle.flightMode == "Return") {
+                    QGroundControl.multiVehicleManager.activeVehicle.flightMode = "Manual"
+                    checked = true
+                }
+            }
+        }
         //-- Map Center Control
         DropButton {
             id:                 centerMapDropButton

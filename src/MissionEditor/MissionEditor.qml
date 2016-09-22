@@ -650,6 +650,18 @@ QGCView {
                     z:                  QGroundControl.zOrderWidgets
 
                     RoundButton {
+                        id:             missionStart
+                        buttonImage:    "/res/Play"
+                        lightBorders:   _lightWidgetBorders
+                        visible: _activeVehicle && !_syncDropDownController.syncInProgress
+                        onClicked: {
+                            _syncDropDownController.sendToVehicle()
+                            showFlyView()
+                            checked = false
+                        }
+                    }
+
+                    RoundButton {
                         id:             addMissionItemsButton
                         buttonImage:    "/qmlimages/MapAddMission.svg"
                         lightBorders:   _lightWidgetBorders

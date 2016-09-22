@@ -99,6 +99,7 @@
 #include "PreMission/PreMissionController.h"
 #include "WeatherStation/WeatherStationController.h"
 #include "WeatherStation/WeatherStationSettingsController.h"
+#include "VehicleControl/VehicleControlController.h"
 
 #ifndef __ios__
     #include "SerialLink.h"
@@ -420,6 +421,7 @@ void QGCApplication::_initCommon(void)
     qmlRegisterType<PreMissionController>               ("QGroundControl.Controllers", 1, 0, "PreMissionController");
     qmlRegisterType<WeatherStationController>           ("QGroundControl.Controllers", 1, 0, "WeatherStationController");
     qmlRegisterType<WeatherStationSettingsController>   ("QGroundControl.Controllers", 1, 0, "WeatherStationSettingsController");
+    qmlRegisterType<VehicleControlController>           ("QGroundControl.Controllers", 1, 0, "VehicleControlController");
     // END
 
 #ifndef __mobile__
