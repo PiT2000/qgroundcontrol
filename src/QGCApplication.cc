@@ -416,7 +416,6 @@ void QGCApplication::_initCommon(void)
     qmlRegisterType<JoystickConfigController>           ("QGroundControl.Controllers", 1, 0, "JoystickConfigController");
     qmlRegisterType<GeoFenceController>                 ("QGroundControl.Controllers", 1, 0, "GeoFenceController");
 
-
     // FOR TSURU
     qmlRegisterType<PreMissionController>               ("QGroundControl.Controllers", 1, 0, "PreMissionController");
     qmlRegisterType<WeatherStationController>           ("QGroundControl.Controllers", 1, 0, "WeatherStationController");
