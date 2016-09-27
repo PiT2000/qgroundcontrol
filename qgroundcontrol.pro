@@ -239,6 +239,7 @@ INCLUDEPATH += \
     src/QtLocationPlugin \
     src/QtLocationPlugin/QMLControl \
     src/PositionManager \
+    src/WeatherStation \
 
 FORMS += \
     src/ui/MainWindow.ui \
@@ -337,7 +338,8 @@ HEADERS += \
     src/PositionManager/PositionManager.h \
     src/PreMission/PreMissionController.h \
     src/WeatherStation/WeatherStationController.h \
-    src/WeatherStation/WeatherStationSettingsController.h
+    src/WeatherStation/WeatherStationSettingsController.h \
+    src/WeatherStation/WeatherStation.h
 
 AndroidBuild {
 HEADERS += \
@@ -502,7 +504,8 @@ SOURCES += \
     src/PositionManager/PositionManager.cpp \
     src/PreMission/PreMissionController.cpp \
     src/WeatherStation/WeatherStationController.cpp \
-    src/WeatherStation/WeatherStationSettingsController.cpp
+    src/WeatherStation/WeatherStationSettingsController.cpp \
+    src/WeatherStation/WeatherStation.cpp
 
 DebugBuild {
 SOURCES += \
