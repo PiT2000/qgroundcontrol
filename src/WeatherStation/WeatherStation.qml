@@ -11,7 +11,7 @@ import QGroundControl.Controllers   1.0
 Rectangle {
     id:     weatherStation
     color:  qgcPal.window
-    height: QGroundControl.weatherStation.portReady ? _defaultTextHeight*6 :message.height + errorMessage.height
+    height: QGroundControl.weatherStation.portReady ? _defaultTextHeight*6 : message.height + errorMessage.height
 
     QGCPalette { id: qgcPal }
 
@@ -23,22 +23,22 @@ Rectangle {
     readonly property real _buttonWidth:        ScreenTools.defaultFontPixelWidth * 10
 
     Rectangle {
-        anchors.left: parent.left
-        anchors.verticalCenter: message.verticalCenter
-        width:  10
-        height: 10
-        radius: 5
+        id: status
+        anchors.top: parent.top
+        width:  parent.width
+        height: 6
+        radius: 3
         color: QGroundControl.weatherStation.flightResolved ? "#00ff00" : "#ff0000"
     }
 
     QGCLabel {
         id:                 message
         width:              parent.width
-        anchors.top:        parent.top
+        anchors.top:        status.bottom
         verticalAlignment:  Text.AlignVCenter
         horizontalAlignment:Text.AlignHCenter
         wrapMode:           Text.WordWrap
-        text:               qsTr("No connect")
+        text:               qsTr("Not connected")
         visible:            !QGroundControl.weatherStation.portReady
     }
     QGCLabel {
