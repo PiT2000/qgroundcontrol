@@ -30,7 +30,7 @@ public:
     Q_PROPERTY( qreal precipitationMax  READ precipitationMax   WRITE setPrecipitationMax   NOTIFY precipitationMaxChanged )
     Q_PROPERTY( qreal windSpeedMax      READ windSpeedMax       WRITE setWindSpeedMax       NOTIFY windSpeedMaxChanged     )
     //Свойства порта
-    Q_PROPERTY( QStringList portList    READ portNameList       WRITE setPortList           NOTIFY portListChanged         )
+    Q_PROPERTY( QStringList portList    READ portList           WRITE setPortList           NOTIFY portListChanged         )
     Q_PROPERTY( QString     portName    READ portName           WRITE setPortName           NOTIFY portNameChanged         )
     Q_PROPERTY( QString     portError   READ portError          WRITE setPortError          NOTIFY portErrorChanged        )
     Q_PROPERTY( bool        portReady   READ portReady          WRITE setPortReady          NOTIFY portReadyChanged        )

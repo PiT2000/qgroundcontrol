@@ -19,9 +19,9 @@ QGCView {
     property real _labelWidth:                  ScreenTools.defaultFontPixelWidth * 15
     property real _editFieldWidth:              ScreenTools.defaultFontPixelWidth * 30
 
-    WeatherStationSettingsController {
-        id: weatherStationSettingsController
-    }
+//    WeatherStationSettingsController {
+//        id: weatherStationSettingsController
+//    }
     QGCPalette { id: qgcPal }
 
     QGCViewPanel {
@@ -70,9 +70,9 @@ QGCView {
                             QGCComboBox {
                                 id: portName
                                 width: _labelWidth
-                                model: weatherStationSettingsController.portNameList
+                                model:  QGroundControl.weatherStation.portList
                                 Component.onCompleted: {
-                                    var index = portName.find(weatherStationSettingsController.portName)
+                                    var index = portName.find(QGroundControl.weatherStation.portName)
                                     if (index >= 0) {
                                         portName.currentIndex = index
                                     }
@@ -80,7 +80,7 @@ QGCView {
                                 onActivated: {
                                     if (index != -1) {
                                         currentIndex = index
-                                        weatherStationSettingsController.portName = model[index]
+                                        QGroundControl.weatherStation.portName = model[index]
                                     }
                                 }
                             }
@@ -125,15 +125,15 @@ QGCView {
                                     height: temperatureRangeMaxEdit.height
                                     text:   "-"
                                     onClicked: {
-                                        if(weatherStationSettingsController.temperatureMax > -25.0) {
-                                            weatherStationSettingsController.temperatureMax = weatherStationSettingsController.temperatureMax - 1
+                                        if(QGroundControl.weatherStation.temperatureMax > -25.0) {
+                                            QGroundControl.weatherStation.temperatureMax = QGroundControl.weatherStation.temperatureMax - 1
                                         }
                                     }
                                 }
                                 QGCTextField {
                                     id:             temperatureRangeMaxEdit
                                     width:          _editFieldWidth - (height * 2) - (ScreenTools.defaultFontPixelWidth * 2)
-                                    text:           weatherStationSettingsController.temperatureMax
+                                    text:           QGroundControl.weatherStation.temperatureMax
                                     showUnits:      true
                                     unitsLabel:     "C"
                                     maximumLength:  6
@@ -142,7 +142,7 @@ QGCView {
                                         var values = parseFloat(text)
                                         if(values >= -25.0 && values <= 50.0)
                                         {
-                                            weatherStationSettingsController.temperatureMax = values
+                                            QGroundControl.weatherStation.temperatureMax = values
                                         }
                                     }
                                 }
@@ -151,8 +151,8 @@ QGCView {
                                     height: temperatureRangeMaxEdit.height
                                     text:   "+"
                                     onClicked: {
-                                        if(weatherStationSettingsController.temperatureMax < 50.0) {
-                                            weatherStationSettingsController.temperatureMax = weatherStationSettingsController.temperatureMax + 1
+                                        if(QGroundControl.weatherStation.temperatureMax < 50.0) {
+                                            QGroundControl.weatherStation.temperatureMax = QGroundControl.weatherStation.temperatureMax + 1
                                         }
                                     }
                                 }
@@ -173,15 +173,15 @@ QGCView {
                                     height: temperatureRangeMinEdit.height
                                     text:   "-"
                                     onClicked: {
-                                        if(weatherStationSettingsController.temperatureMin > -25.0) {
-                                            weatherStationSettingsController.temperatureMin = weatherStationSettingsController.temperatureMin - 1
+                                        if(QGroundControl.weatherStation.temperatureMin > -25.0) {
+                                            QGroundControl.weatherStation.temperatureMin = QGroundControl.weatherStation.temperatureMin - 1
                                         }
                                     }
                                 }
                                 QGCTextField {
                                     id:             temperatureRangeMinEdit
                                     width:          _editFieldWidth - (height * 2) - (ScreenTools.defaultFontPixelWidth * 2)
-                                    text:           weatherStationSettingsController.temperatureMin
+                                    text:           QGroundControl.weatherStation.temperatureMin
                                     showUnits:      true
                                     unitsLabel:     "C"
                                     maximumLength:  6
@@ -190,7 +190,7 @@ QGCView {
                                         var values = parseFloat(text)
                                         if(values >= -25.0 && values <= 50.0)
                                         {
-                                            weatherStationSettingsController.temperatureMin = values
+                                            QGroundControl.weatherStation.temperatureMin = values
                                         }
                                     }
                                 }
@@ -199,8 +199,8 @@ QGCView {
                                     height: temperatureRangeMinEdit.height
                                     text:   "+"
                                     onClicked: {
-                                        if(weatherStationSettingsController.temperatureMin < 50.0) {
-                                            weatherStationSettingsController.temperatureMin = weatherStationSettingsController.temperatureMin + 1
+                                        if(QGroundControl.weatherStation.temperatureMin < 50.0) {
+                                            QGroundControl.weatherStation.temperatureMin = QGroundControl.weatherStation.temperatureMin + 1
                                         }
                                     }
                                 }
@@ -221,15 +221,15 @@ QGCView {
                                     height: precipitationRangeMaxEdit.height
                                     text:   "-"
                                     onClicked: {
-                                        if(weatherStationSettingsController.precipitationMax > 0.0) {
-                                            weatherStationSettingsController.precipitationMax = weatherStationSettingsController.precipitationMax - 1
+                                        if(QGroundControl.weatherStation.precipitationMax > 0.0) {
+                                            QGroundControl.weatherStation.precipitationMax = QGroundControl.weatherStation.precipitationMax - 1
                                         }
                                     }
                                 }
                                 QGCTextField {
                                     id:             precipitationRangeMaxEdit
                                     width:          _editFieldWidth - (height * 2) - (ScreenTools.defaultFontPixelWidth * 2)
-                                    text:           weatherStationSettingsController.precipitationMax
+                                    text:           QGroundControl.weatherStation.precipitationMax
                                     showUnits:      true
                                     unitsLabel:     "mm/s"
                                     maximumLength:  6
@@ -238,7 +238,7 @@ QGCView {
                                         var values = parseFloat(text)
                                         if(values >= 0.0 && values <= 100.0)
                                         {
-                                            weatherStationSettingsController.precipitationMax = values
+                                            QGroundControl.weatherStation.precipitationMax = values
                                         }
                                     }
                                 }
@@ -247,8 +247,8 @@ QGCView {
                                     height: precipitationRangeMaxEdit.height
                                     text:   "+"
                                     onClicked: {
-                                        if(weatherStationSettingsController.precipitationMax < 100.0) {
-                                            weatherStationSettingsController.precipitationMax = weatherStationSettingsController.precipitationMax + 1
+                                        if(QGroundControl.weatherStation.precipitationMax < 100.0) {
+                                            QGroundControl.weatherStation.precipitationMax = QGroundControl.weatherStation.precipitationMax + 1
                                         }
                                     }
                                 }
@@ -269,15 +269,15 @@ QGCView {
                                     height: windSpeedRangeMaxEdit.height
                                     text:   "-"
                                     onClicked: {
-                                        if(weatherStationSettingsController.windSpeedMax > 0.0) {
-                                            weatherStationSettingsController.windSpeedMax = weatherStationSettingsController.windSpeedMax - 1
+                                        if(QGroundControl.weatherStation.windSpeedMax > 0.0) {
+                                            QGroundControl.weatherStation.windSpeedMax = QGroundControl.weatherStation.windSpeedMax - 1
                                         }
                                     }
                                 }
                                 QGCTextField {
                                     id:             windSpeedRangeMaxEdit
                                     width:          _editFieldWidth - (height * 2) - (ScreenTools.defaultFontPixelWidth * 2)
-                                    text:           weatherStationSettingsController.windSpeedMax
+                                    text:           QGroundControl.weatherStation.windSpeedMax
                                     showUnits:      true
                                     unitsLabel:     "m/s"
                                     maximumLength:  6
@@ -286,7 +286,7 @@ QGCView {
                                         var values = parseFloat(text)
                                         if(values >= 0.0 && values <= 50.0)
                                         {
-                                            weatherStationSettingsController.windSpeedMax = values
+                                            QGroundControl.weatherStation.windSpeedMax = values
                                         }
                                     }
                                 }
@@ -295,8 +295,8 @@ QGCView {
                                     height: windSpeedRangeMaxEdit.height
                                     text:   "+"
                                     onClicked: {
-                                        if(weatherStationSettingsController.windSpeedMax < 50.0) {
-                                            weatherStationSettingsController.windSpeedMax = weatherStationSettingsController.windSpeedMax + 1
+                                        if(QGroundControl.weatherStation.windSpeedMax < 50.0) {
+                                            QGroundControl.weatherStation.windSpeedMax = QGroundControl.weatherStation.windSpeedMax + 1
                                         }
                                     }
                                 }
