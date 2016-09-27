@@ -22,6 +22,15 @@ Rectangle {
     readonly property real _buttonHeight:       ScreenTools.isTinyScreen ? ScreenTools.defaultFontPixelHeight * 3 : ScreenTools.defaultFontPixelHeight * 2
     readonly property real _buttonWidth:        ScreenTools.defaultFontPixelWidth * 10
 
+    Rectangle {
+        anchors.left: parent.left
+        anchors.verticalCenter: message.verticalCenter
+        width:  10
+        height: 10
+        radius: 5
+        color: QGroundControl.weatherStation.flightResolved ? "#00ff00" : "#ff0000"
+    }
+
     QGCLabel {
         id:                 message
         width:              parent.width
