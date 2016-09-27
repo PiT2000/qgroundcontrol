@@ -63,7 +63,7 @@ void WeatherStation::openPort()
     {//порт открыт
         if(_port->error() != QSerialPort::NoError)
         {//есть ошибки
-            disconnect( _port,  SIGNAL  ( portReady () ),
+            disconnect( _port,  SIGNAL  ( readyRead () ),
                         this,   SLOT    ( readData  () ));
             setPortError(  _portName+": "+_port->errorString() );
             setPortReady( false );
@@ -71,7 +71,7 @@ void WeatherStation::openPort()
         }
         if(_port->portName() != _portName)
         {
-            disconnect( _port,  SIGNAL  ( portReady () ),
+            disconnect( _port,  SIGNAL  ( readyRead () ),
                         this,   SLOT    ( readData  () ));
             setPortError(  _portName+": "+_port->errorString() );
             setPortReady( false );
@@ -80,6 +80,7 @@ void WeatherStation::openPort()
     }
     else
     {//порт закрыт
+        _port->readyRead();
         if(_portName != "")
         {//есть имя
             _port->close();
@@ -91,8 +92,8 @@ void WeatherStation::openPort()
             _port->setFlowControl   ( QSerialPort::NoFlowControl );
             if( _port->open( QSerialPort::ReadWrite ) )
             {//порт открылся
-                connect( _port, SIGNAL  (portReady  () ),
-                         this,  SLOT    (readData   () ));
+                connect( _port, SIGNAL  ( readyRead  () ),
+                         this,  SLOT    ( readData   () ));
                 setPortError( "No error" );
                 setPortReady(true);
             }
@@ -128,3 +129,74 @@ void WeatherStation::readData()
 }
 
 
+QStringList WeatherStation::portList()
+{
+    _portList.clear();
+    _portList.append(tr(""));
+    QList<QSerialPortInfo> list = QSerialPortInfo::availablePorts();
+    foreach ( QSerialPortInfo info, list)
+    {
+        _portList.append(info.portName());
+    }
+    return _portList;
+}
+
+void WeatherStation::setPortName(QString value)
+{
+    if(_portName != value)
+    {
+        _portName = value;
+        QSettings settings;
+        settings.beginGroup("WEATHER_STATION");
+        settings.setValue("PortName", _portName);
+        emit portNameChanged(_portName);
+    }
+}
+
+void WeatherStation::setTemperatureMax(qreal value)
+{
+    if(value >= -25.0 && value <= 50)
+    {
+        _temperatureMax = value;
+        QSettings settings;
+        settings.beginGroup("WEATHER_STATION");
+        settings.setValue("temperatureMax", value);
+        emit temperatureMaxChanged(value);
+    }
+}
+
+void WeatherStation::setTemperatureMin(qreal value)
+{
+    if(value >= -25.0 && value <= 50)
+    {
+        _temperatureMin = value;
+        QSettings settings;
+        settings.beginGroup("WEATHER_STATION");
+        settings.setValue("temperatureMin", value);
+        emit temperatureMinChanged(value);
+    }
+}
+
+void WeatherStation::setPrecipitationMax(qreal value)
+{
+    if(value >= -25.0 && value <= 50)
+    {
+        _precipitationMax = value;
+        QSettings settings;
+        settings.beginGroup("WEATHER_STATION");
+        settings.setValue("precipitationMax", value);
+        emit precipitationMaxChanged(value);
+    }
+}
+
+void WeatherStation::setWindSpeedMax(qreal value)
+{
+    if(value >= -25.0 && value <= 50)
+    {
+        _windSpeedMax = value;
+        QSettings settings;
+        settings.beginGroup("WEATHER_STATION");
+        settings.setValue("windSpeedMax", value);
+        emit windSpeedMaxChanged(value);
+    }
+}

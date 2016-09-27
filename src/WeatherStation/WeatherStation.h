@@ -30,7 +30,7 @@ public:
     Q_PROPERTY( qreal precipitationMax  READ precipitationMax   WRITE setPrecipitationMax   NOTIFY precipitationMaxChanged )
     Q_PROPERTY( qreal windSpeedMax      READ windSpeedMax       WRITE setWindSpeedMax       NOTIFY windSpeedMaxChanged     )
     //Свойства порта
-    Q_PROPERTY( QStringList portList    READ portList           WRITE setPortList           NOTIFY portListChanged         )
+    Q_PROPERTY( QStringList portList    READ portList                      NOTIFY portListChanged         )
     Q_PROPERTY( QString     portName    READ portName           WRITE setPortName           NOTIFY portNameChanged         )
     Q_PROPERTY( QString     portError   READ portError          WRITE setPortError          NOTIFY portErrorChanged        )
     Q_PROPERTY( bool        portReady   READ portReady          WRITE setPortReady          NOTIFY portReadyChanged        )
@@ -48,7 +48,7 @@ public:
     qreal       precipitationMax(void) { return _precipitationMax; }
     qreal       windSpeedMax    (void) { return _windSpeedMax;     }
     //ПОлучение свойств порта
-    QStringList portList        (void) { return _portList;  }
+    QStringList portList        (void);
     QString     portName        (void) { return _portName;  }
     QString     portError       (void) { return _portError; }
     bool        portReady       (void) { return _portReady; }
@@ -65,13 +65,12 @@ public slots:
     void setWindDirection   ( qreal value ) { _windDirection        = value; emit windDirectionChanged      ( value );}
     void setWindSpeed       ( qreal value ) { _windSpeed            = value; emit windSpeedChanged          ( value );}
     //Установка предельных значений
-    void setTemperatureMax  ( qreal value ) { _temperatureMax       = value; emit temperatureMaxChanged     ( value );}
-    void setTemperatureMin  ( qreal value ) { _temperatureMin       = value; emit temperatureMinChanged     ( value );}
-    void setPrecipitationMax( qreal value ) { _precipitationMax     = value; emit precipitationMaxChanged   ( value );}
-    void setWindSpeedMax    ( qreal value ) { _windSpeedMax         = value; emit windSpeedChanged          ( value );}
+    void setTemperatureMax  ( qreal value );
+    void setTemperatureMin  ( qreal value );
+    void setPrecipitationMax( qreal value );
+    void setWindSpeedMax    ( qreal value );
     //Установка свойств порта
-    void setPortList        ( QStringList value )   { _portList     = value; emit portListChanged       ( value );}
-    void setPortName        ( QString value )       { _portName     = value; emit portNameChanged       ( value );}
+    void setPortName        ( QString value );
     void setPortError       ( QString value )       { _portError    = value; emit portErrorChanged      ( value );}
     void setPortReady       ( bool    value )       { _portReady    = value; emit portReadyChanged      ( value );}
 
