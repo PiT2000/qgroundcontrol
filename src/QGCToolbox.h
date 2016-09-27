@@ -32,6 +32,7 @@ class QGCImageProvider;
 class UASMessageHandler;
 class QGCPositionManager;
 class VideoManager;
+class WeatherStation;
 
 /// This is used to manage all of our top level services/tools
 class QGCToolbox {
@@ -56,6 +57,7 @@ public:
     FollowMe*                   followMe(void)                  { return _followMe; }
     QGCPositionManager*         qgcPositionManager(void)        { return _qgcPositionManager; }
     VideoManager*               videoManager(void)              { return _videoManager; }
+    WeatherStation*             weatherStation(void)            { return _weatherStation; }
 #ifndef __mobile__
     GPSManager*                 gpsManager(void)                { return _gpsManager; }
 #endif
@@ -81,6 +83,7 @@ private:
     FollowMe*                   _followMe;
     QGCPositionManager*         _qgcPositionManager;
     VideoManager*               _videoManager;
+    WeatherStation*             _weatherStation;
 };
 
 /// This is the base class for all tools

@@ -47,6 +47,7 @@ QGroundControlQmlGlobal::QGroundControlQmlGlobal(QGCApplication* app)
     , _qgcPositionManager(NULL)
     , _missionCommandTree(NULL)
     , _videoManager(NULL)
+    , _weatherStation(NULL)
     , _virtualTabletJoystick(false)
     , _baseFontPointSize(0.0)
 {
@@ -75,6 +76,7 @@ void QGroundControlQmlGlobal::setToolbox(QGCToolbox* toolbox)
     _qgcPositionManager     = toolbox->qgcPositionManager();
     _missionCommandTree     = toolbox->missionCommandTree();
     _videoManager           = toolbox->videoManager();
+    _weatherStation         = toolbox->weatherStation();
 }
 
 
