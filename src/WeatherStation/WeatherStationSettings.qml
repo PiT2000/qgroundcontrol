@@ -19,9 +19,6 @@ QGCView {
     property real _labelWidth:                  ScreenTools.defaultFontPixelWidth * 15
     property real _editFieldWidth:              ScreenTools.defaultFontPixelWidth * 30
 
-//    WeatherStationSettingsController {
-//        id: weatherStationSettingsController
-//    }
     QGCPalette { id: qgcPal }
 
     QGCViewPanel {
