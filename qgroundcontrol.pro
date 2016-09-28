@@ -240,6 +240,7 @@ INCLUDEPATH += \
     src/QtLocationPlugin/QMLControl \
     src/PositionManager \
     src/WeatherStation \
+    src/Tsuru \
 
 FORMS += \
     src/ui/MainWindow.ui \
@@ -337,7 +338,8 @@ HEADERS += \
     src/QtLocationPlugin/QMLControl/QGCMapEngineManager.h \
     src/PositionManager/PositionManager.h \
     src/PreMission/PreMissionController.h \
-    src/WeatherStation/WeatherStation.h
+    src/WeatherStation/WeatherStation.h \
+    src/Tsuru/TsuruManager.h
 
 AndroidBuild {
 HEADERS += \
@@ -501,7 +503,8 @@ SOURCES += \
     src/PositionManager/SimulatedPosition.cc \
     src/PositionManager/PositionManager.cpp \
     src/PreMission/PreMissionController.cpp \
-    src/WeatherStation/WeatherStation.cpp
+    src/WeatherStation/WeatherStation.cpp \
+    src/Tsuru/TsuruManager.cpp
 
 DebugBuild {
 SOURCES += \
