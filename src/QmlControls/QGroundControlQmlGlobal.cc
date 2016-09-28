@@ -48,6 +48,7 @@ QGroundControlQmlGlobal::QGroundControlQmlGlobal(QGCApplication* app)
     , _missionCommandTree(NULL)
     , _videoManager(NULL)
     , _weatherStation(NULL)
+    , _tsuruManager(NULL)
     , _virtualTabletJoystick(false)
     , _baseFontPointSize(0.0)
 {
@@ -77,6 +78,7 @@ void QGroundControlQmlGlobal::setToolbox(QGCToolbox* toolbox)
     _missionCommandTree     = toolbox->missionCommandTree();
     _videoManager           = toolbox->videoManager();
     _weatherStation         = toolbox->weatherStation();
+    _tsuruManager           = toolbox->tsuruManager();
 }
 
 

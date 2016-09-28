@@ -10,10 +10,17 @@ class TsuruManager : public QGCTool
 public:
     explicit TsuruManager(QGCApplication* app);
     ~TsuruManager();
+    Q_PROPERTY(bool isEditor READ isEditor CONSTANT)
+
+    bool isEditor(void) { return _isEditor; }
+
+    // Override from QGCTool
+    void setToolbox(QGCToolbox *toolbox);
 
 public slots:
 
 private:
+    bool _isEditor;
 
 signals:
 

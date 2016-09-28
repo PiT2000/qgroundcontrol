@@ -29,6 +29,7 @@
 #include "PositionManager.h"
 #include "VideoManager.h"
 #include "WeatherStation.h"
+#include "TsuruManager.h"
 
 QGCToolbox::QGCToolbox(QGCApplication* app)
     : _audioOutput(NULL)
@@ -52,6 +53,7 @@ QGCToolbox::QGCToolbox(QGCApplication* app)
     , _qgcPositionManager(NULL)
     , _videoManager(NULL)
     , _weatherStation(NULL)
+    , _tsuruManager(NULL)
 {
     _audioOutput =              new GAudioOutput(app);
     _autopilotPluginManager =   new AutoPilotPluginManager(app);
@@ -74,6 +76,7 @@ QGCToolbox::QGCToolbox(QGCApplication* app)
     _followMe =                 new FollowMe(app);
     _videoManager =             new VideoManager(app);
     _weatherStation =           new WeatherStation(app);
+    _tsuruManager =             new TsuruManager(app);
 
     _audioOutput->setToolbox(this);
     _autopilotPluginManager->setToolbox(this);
@@ -96,10 +99,12 @@ QGCToolbox::QGCToolbox(QGCApplication* app)
     _qgcPositionManager->setToolbox(this);
     _videoManager->setToolbox(this);
     _weatherStation->setToolbox(this);
+    _tsuruManager->setToolbox(this);
 }
 
 QGCToolbox::~QGCToolbox()
 {
+    delete _tsuruManager;
     delete _weatherStation;
     delete _videoManager;
     delete _audioOutput;

@@ -33,6 +33,7 @@ class UASMessageHandler;
 class QGCPositionManager;
 class VideoManager;
 class WeatherStation;
+class TsuruManager;
 
 /// This is used to manage all of our top level services/tools
 class QGCToolbox {
@@ -58,6 +59,7 @@ public:
     QGCPositionManager*         qgcPositionManager(void)        { return _qgcPositionManager; }
     VideoManager*               videoManager(void)              { return _videoManager; }
     WeatherStation*             weatherStation(void)            { return _weatherStation; }
+    TsuruManager*               tsuruManager(void)              { return _tsuruManager; }
 #ifndef __mobile__
     GPSManager*                 gpsManager(void)                { return _gpsManager; }
 #endif
@@ -84,6 +86,7 @@ private:
     QGCPositionManager*         _qgcPositionManager;
     VideoManager*               _videoManager;
     WeatherStation*             _weatherStation;
+    TsuruManager*               _tsuruManager;
 };
 
 /// This is the base class for all tools

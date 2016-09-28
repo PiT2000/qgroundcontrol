@@ -23,7 +23,6 @@
 #include "FactMetaData.h"
 #include "SimulatedPosition.h"
 #include "QGCLoggingCategory.h"
-#include "WeatherStation.h"
 
 #ifdef QT_DEBUG
 #include "MockLink.h"
@@ -74,6 +73,7 @@ public:
     Q_PROPERTY(MissionCommandTree*  missionCommandTree  READ missionCommandTree     CONSTANT)
     Q_PROPERTY(VideoManager*        videoManager        READ videoManager           CONSTANT)
     Q_PROPERTY(WeatherStation*      weatherStation      READ weatherStation         CONSTANT)
+    Q_PROPERTY(TsuruManager*        tsuruManager        READ tsuruManager           CONSTANT)
 
     Q_PROPERTY(qreal                zOrderTopMost       READ zOrderTopMost          CONSTANT) ///< z order for top most items, toolbar, main window sub view
     Q_PROPERTY(qreal                zOrderWidgets       READ zOrderWidgets          CONSTANT) ///< z order value to widgets, for example: zoom controls, hud widgetss
@@ -170,6 +170,7 @@ public:
     MissionCommandTree*     missionCommandTree  ()      { return _missionCommandTree; }
     VideoManager*           videoManager        ()      { return _videoManager; }
     WeatherStation*         weatherStation      ()      { return _weatherStation; }
+    TsuruManager*           tsuruManager        ()      { return _tsuruManager; }
 
     qreal                   zOrderTopMost       ()      { return 1000; }
     qreal                   zOrderWidgets       ()      { return 100; }
@@ -241,6 +242,7 @@ private:
     MissionCommandTree*     _missionCommandTree;
     VideoManager*           _videoManager;
     WeatherStation*         _weatherStation;
+    TsuruManager*           _tsuruManager;
 
     bool                    _virtualTabletJoystick;
     qreal                   _baseFontPointSize;
