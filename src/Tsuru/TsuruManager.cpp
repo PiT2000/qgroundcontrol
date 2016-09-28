@@ -9,7 +9,11 @@ TsuruManager::TsuruManager(QGCApplication* app)
     : QGCTool(app)
     , _isEditor(false)
 {
-
+    foreach ( QString str, app->arguments() )
+    {
+        if( str == "--editor" )
+            _isEditor = true;
+    }
 }
 
 TsuruManager::~TsuruManager()

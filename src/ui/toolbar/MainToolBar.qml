@@ -338,6 +338,7 @@ Rectangle {
             source:             "/res/QGCLogoWhite"
             logo:               true
             onClicked:          toolBar.showSettingsView()
+            visible:            QGroundControl.tsuruManager.isEditor
         }
 
         QGCToolBarButton {
@@ -348,6 +349,7 @@ Rectangle {
             exclusiveGroup:     mainActionGroup
             source:             "/qmlimages/Gears.svg"
             onClicked:          toolBar.showSetupView()
+            visible:            QGroundControl.tsuruManager.isEditor
         }
 
         QGCToolBarButton {
@@ -358,6 +360,7 @@ Rectangle {
             exclusiveGroup:     mainActionGroup
             source:             "/qmlimages/PreMission.svg"
             onClicked:          toolBar.showPreMissionView()
+            visible:            QGroundControl.tsuruManager.isEditor
         }
 
         QGCToolBarButton {
@@ -368,6 +371,7 @@ Rectangle {
             exclusiveGroup:     mainActionGroup
             source:             "/qmlimages/Plan.svg"
             onClicked:          toolBar.showPlanView()
+            visible:            QGroundControl.tsuruManager.isEditor
         }
 
         QGCToolBarButton {
@@ -378,6 +382,7 @@ Rectangle {
             exclusiveGroup:     mainActionGroup
             source:             "/qmlimages/PaperPlane.svg"
             onClicked:          toolBar.showFlyView()
+            visible:            QGroundControl.tsuruManager.isEditor
         }
     }
 
