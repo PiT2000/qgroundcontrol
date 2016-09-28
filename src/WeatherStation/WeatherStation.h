@@ -29,11 +29,18 @@ public:
     Q_PROPERTY( qreal temperatureMin    READ temperatureMin     WRITE setTemperatureMin     NOTIFY temperatureMinChanged   )
     Q_PROPERTY( qreal precipitationMax  READ precipitationMax   WRITE setPrecipitationMax   NOTIFY precipitationMaxChanged )
     Q_PROPERTY( qreal windSpeedMax      READ windSpeedMax       WRITE setWindSpeedMax       NOTIFY windSpeedMaxChanged     )
+    //Свойства разрешений вылета
+    Q_PROPERTY( bool  flightResolved    READ flightResolved     WRITE setFlightResolved     NOTIFY flightResolvedChanged   )
+    Q_PROPERTY( bool  temperatureWar    READ temperatureWar     WRITE setTemperatureWar     NOTIFY temperatureWarChanged   )
+    Q_PROPERTY( bool  precipitationWar  READ precipitationWar   WRITE setPrecipitationWar   NOTIFY precipitationWarChanged )
+    Q_PROPERTY( bool  windSpeedWar      READ windSpeedWar       WRITE setWindSpeedWar       NOTIFY windSpeedWarChanged     )
     //Свойства порта
-    Q_PROPERTY( QStringList portList    READ portList                      NOTIFY portListChanged         )
-    Q_PROPERTY( QString     portName    READ portName           WRITE setPortName           NOTIFY portNameChanged         )
-    Q_PROPERTY( QString     portError   READ portError          WRITE setPortError          NOTIFY portErrorChanged        )
-    Q_PROPERTY( bool        portReady   READ portReady          WRITE setPortReady          NOTIFY portReadyChanged        )
+    Q_PROPERTY( QString portName        READ portName           WRITE setPortName           NOTIFY portNameChanged         )
+    Q_PROPERTY( QString portError       READ portError          WRITE setPortError          NOTIFY portErrorChanged        )
+    Q_PROPERTY( bool    portReady       READ portReady          WRITE setPortReady          NOTIFY portReadyChanged        )
+
+    Q_PROPERTY( QStringList portList    READ portList           NOTIFY portListChanged )
+
 
     //Получение свойств телеметрии
     qreal       temperature     (void) { return _temperature;      }
@@ -47,11 +54,17 @@ public:
     qreal       temperatureMin  (void) { return _temperatureMin;   }
     qreal       precipitationMax(void) { return _precipitationMax; }
     qreal       windSpeedMax    (void) { return _windSpeedMax;     }
+    //Свойства разрешений вылета
+    bool        flightResolved  (void) { return _flightResolved;   }
+    bool        temperatureWar  (void) { return _temperatureWar;   }
+    bool        precipitationWar(void) { return _precipitationWar; }
+    bool        windSpeedWar    (void) { return _windSpeedWar;     }
     //ПОлучение свойств порта
-    QStringList portList        (void);
     QString     portName        (void) { return _portName;  }
     QString     portError       (void) { return _portError; }
     bool        portReady       (void) { return _portReady; }
+
+    QStringList portList        (void);
 
     // Override from QGCTool
     void        setToolbox          (QGCToolbox *toolbox);
@@ -69,10 +82,15 @@ public slots:
     void setTemperatureMin  ( qreal value );
     void setPrecipitationMax( qreal value );
     void setWindSpeedMax    ( qreal value );
+    //Установка разрешений вылета
+    void setFlightResolved  ( qreal value ) { _flightResolved       = value; emit flightResolvedChanged (value);}
+    void setTemperatureWar  ( qreal value ) { _temperatureWar       = value; emit temperatureWarChanged (value);}
+    void setPrecipitationWar( qreal value ) { _precipitationWar     = value; emit precipitationWarChanged(value);}
+    void setWindSpeedWar    ( qreal value ) { _windSpeedWar         = value; emit windSpeedWarChanged   (value);}
     //Установка свойств порта
     void setPortName        ( QString value );
-    void setPortError       ( QString value )       { _portError    = value; emit portErrorChanged      ( value );}
-    void setPortReady       ( bool    value )       { _portReady    = value; emit portReadyChanged      ( value );}
+    void setPortError       ( QString value ) { _portError    = value; emit portErrorChanged      ( value );}
+    void setPortReady       ( bool    value ) { _portReady    = value; emit portReadyChanged      ( value );}
 
     //Рабочие слоты
     void openPort(void); //Открытие порта
@@ -91,11 +109,17 @@ signals:
     void temperatureMinChanged  ( qreal value );
     void precipitationMaxChanged( qreal value );
     void windSpeedMaxChanged    ( qreal value );
+    //Сигналы об изменении разрешений вылета
+    void flightResolvedChanged  ( qreal value );
+    void temperatureWarChanged  ( qreal value );
+    void precipitationWarChanged( qreal value );
+    void windSpeedWarChanged    ( qreal value );
     //Сигналы об изменении свойств порта
-    void portListChanged        ( QStringList value );
     void portNameChanged        ( QString value );
     void portErrorChanged       ( QString value );
     void portReadyChanged       ( bool    value );
+
+    void portListChanged        ( QStringList value );
 
 private:
     //Свойства телеметрии
@@ -110,12 +134,17 @@ private:
     qreal       _temperatureMin;
     qreal       _precipitationMax;
     qreal       _windSpeedMax;
+    //Свойства разрешений вылета
+    bool        _flightResolved;
+    bool        _temperatureWar;
+    bool        _precipitationWar;
+    bool        _windSpeedWar;
     //Свойства порта
-    QStringList _portList;
     QString     _portName;
     QString     _portError;
     bool        _portReady;
 
+    QStringList _portList;
 
     QSerialPort*    _port;//Ссылка на порт
     QByteArray      _bufer;//буфер
