@@ -337,7 +337,6 @@ HEADERS += \
     src/QmlControls/QGCImageProvider.h \
     src/QtLocationPlugin/QMLControl/QGCMapEngineManager.h \
     src/PositionManager/PositionManager.h \
-    src/PreMission/PreMissionController.h \
     src/WeatherStation/WeatherStation.h \
     src/Tsuru/TsuruManager.h
 
@@ -502,7 +501,6 @@ SOURCES += \
     src/QtLocationPlugin/QMLControl/QGCMapEngineManager.cc \
     src/PositionManager/SimulatedPosition.cc \
     src/PositionManager/PositionManager.cpp \
-    src/PreMission/PreMissionController.cpp \
     src/WeatherStation/WeatherStation.cpp \
     src/Tsuru/TsuruManager.cpp
 

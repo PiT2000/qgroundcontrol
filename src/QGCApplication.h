@@ -130,8 +130,6 @@ public slots:
     void showPlanView(void);
     void showSetupView(void);
 
-    void showPreMissionView(void);//For new tab PreMission
-
     void qmlAttemptWindowClose(void);
 
 #ifndef __mobile__

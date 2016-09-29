@@ -28,10 +28,6 @@ Window {
         }
     }
 
-    function showPreMissionView() {
-        mainWindowInner.item.showPreMissionView()
-    }
-
     function showFlyView() {
         mainWindowInner.item.showFlyView()
     }

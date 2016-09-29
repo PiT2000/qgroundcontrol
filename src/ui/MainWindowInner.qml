@@ -30,7 +30,6 @@ Item {
     readonly property string _planViewSource:       "MissionEditor.qml"
     readonly property string _setupViewSource:      "SetupView.qml"
     readonly property string _settingsViewSource:   "AppSettings.qml"
-    readonly property string _preMissionViewSource: "PreMission.qml"
 
     QGCPalette { id: qgcPal; colorGroupEnabled: true }
 
@@ -55,22 +54,7 @@ Item {
     function loadPreMission(fileName) {
         showPlanView()
         planViewLoader.item.loadPreMission(fileName)
-    }
-
-    function showPreMissionView() {
-        if(currentPopUp) {
-            currentPopUp.close()
-        }
-        if (preMissionViewLoader.source  != _preMissionViewSource) {
-            preMissionViewLoader.source  = _preMissionViewSource
-        }
-        ScreenTools.availableHeight = parent.height - toolBar.height
-        preMissionViewLoader.visible= true
-        settingsViewLoader.visible  = false
-        flightView.visible          = false
-        setupViewLoader.visible     = false
-        planViewLoader.visible      = false
-        toolBar.checkPreMissionButton()
+        showFlyView()
     }
 
     function showFlyView() {
@@ -78,7 +62,6 @@ Item {
             currentPopUp.close()
         }
         ScreenTools.availableHeight = parent.height - toolBar.height
-        preMissionViewLoader.visible= false
         settingsViewLoader.visible  = false
         flightView.visible          = true
         setupViewLoader.visible     = false
@@ -94,7 +77,6 @@ Item {
             planViewLoader.source   = _planViewSource
         }
         ScreenTools.availableHeight = parent.height - toolBar.height
-        preMissionViewLoader.visible= false
         settingsViewLoader.visible  = false
         flightView.visible          = false
         setupViewLoader.visible     = false
@@ -111,7 +93,6 @@ Item {
         if (setupViewLoader.source  != _setupViewSource) {
             setupViewLoader.source  = _setupViewSource
         }
-        preMissionViewLoader.visible= false
         settingsViewLoader.visible  = false
         flightView.visible          = false
         setupViewLoader.visible     = true
@@ -128,7 +109,6 @@ Item {
         if (settingsViewLoader.source != _settingsViewSource) {
             settingsViewLoader.source  = _settingsViewSource
         }
-        preMissionViewLoader.visible= false
         flightView.visible          = false
         setupViewLoader.visible     = false
         planViewLoader.visible      = false
@@ -301,7 +281,6 @@ Item {
         onShowPlanView:     mainWindow.showPlanView()
         onShowFlyView:      mainWindow.showFlyView()
         onShowSettingsView: mainWindow.showSettingsView()
-        onShowPreMissionView:mainWindow.showPreMissionView()
         Component.onCompleted: {
             ScreenTools.availableHeight = parent.height - toolBar.height
         }
@@ -311,15 +290,6 @@ Item {
         id:                 flightView
         anchors.fill:       parent
         visible:            true
-    }
-
-    Loader {
-        id:                 preMissionViewLoader
-        anchors.left:       parent.left
-        anchors.right:      parent.right
-        anchors.top:        toolBar.bottom
-        anchors.bottom:     parent.bottom
-        visible:            false
     }
 
     Loader {

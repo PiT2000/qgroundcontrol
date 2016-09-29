@@ -96,8 +96,6 @@
 #include "GeoFenceController.h"
 #include "QGCMapPolygon.h"
 
-#include "PreMission/PreMissionController.h"
-
 #ifndef __ios__
     #include "SerialLink.h"
 #endif
@@ -414,10 +412,6 @@ void QGCApplication::_initCommon(void)
     qmlRegisterType<JoystickConfigController>           ("QGroundControl.Controllers", 1, 0, "JoystickConfigController");
     qmlRegisterType<GeoFenceController>                 ("QGroundControl.Controllers", 1, 0, "GeoFenceController");
 
-    // FOR TSURU
-    qmlRegisterType<PreMissionController>               ("QGroundControl.Controllers", 1, 0, "PreMissionController");
-    // END
-
 #ifndef __mobile__
     qmlRegisterType<ViewWidgetController>           ("QGroundControl.Controllers", 1, 0, "ViewWidgetController");
     qmlRegisterType<CustomCommandWidgetController>  ("QGroundControl.Controllers", 1, 0, "CustomCommandWidgetController");
@@ -711,11 +705,6 @@ void QGCApplication::showPlanView(void)
 void QGCApplication::showSetupView(void)
 {
     QMetaObject::invokeMethod(_rootQmlObject(), "showSetupView");
-}
-
-void QGCApplication::showPreMissionView(void)
-{
-    QMetaObject::invokeMethod(_rootQmlObject(), "showPreMissionView");
 }
 
 void QGCApplication::qmlAttemptWindowClose(void)
