@@ -14,6 +14,8 @@ import QtQuick.Controls.Styles  1.2
 import QtQuick.Dialogs          1.2
 import QtLocation               5.3
 import QtPositioning            5.2
+import Qt.labs.folderlistmodel  2.1
+
 
 import QGroundControl               1.0
 import QGroundControl.ScreenTools   1.0
@@ -227,6 +229,43 @@ Item {
                 else if (QGroundControl.multiVehicleManager.activeVehicle.flightMode == "Return") {
                     QGroundControl.multiVehicleManager.activeVehicle.flightMode = "Manual"
                     checked = true
+                }
+            }
+        }
+        //-- Mission Selector Control
+        DropButton {
+            id:                 preMissionSelectorButton
+            dropDirection:      dropRight
+            buttonImage:        "/qmlimages/MapSync.svg"
+            viewportMargins:    ScreenTools.defaultFontPixelWidth / 2
+            exclusiveGroup:     _dropButtonsExclusiveGroup
+            z:                  QGroundControl.zOrderWidgets
+            lightBorders:       _lightWidgetBorders
+            FolderListModel {
+                id:             preMissionListModel
+                showDirs:       false
+                nameFilters:    "*"
+                folder:         "file:"+QGroundControl.tsuruManager.missionPath
+            }
+            dropDownComponent: Component {
+                Column {
+                    QGCLabel {
+                        id:                 title
+                        text:               qsTr("Please select mission")
+                    }
+                    ListView {
+                        id: view
+                        clip:           true
+                        model:          preMissionListModel
+                        width:          parent.width
+                        height:         model.count < 10 ? ScreenTools.defaultFontPixelHeight * 1.5 * model.count : ScreenTools.defaultFontPixelHeight * 1.5 * 10
+                        delegate: QGCButton {
+                            width:      parent.width
+                            height:     ScreenTools.defaultFontPixelHeight * 1.5
+                            text:       model.fileBaseName
+                            onClicked:  loadPreMission(model.filePath)
+                        }
+                    }
                 }
             }
         }
