@@ -171,6 +171,16 @@ Item {
         spacing:            ScreenTools.defaultFontPixelHeight
         visible:            _mainIsMap
 
+        RoundButton {
+            id:             missionStart
+            buttonImage:    "/res/Play"
+            lightBorders:   _lightWidgetBorders
+            visible:        !ScreenTools.isTinyScreen && _mainIsMap && _activeVehicle
+            onClicked: {
+                checked = false
+            }
+        }
+
         //-- Pause
         RoundButton {
             id:                 pauseButton

@@ -70,6 +70,7 @@ QGCView {
 
     function loadPreMission(fileName) {
         missionController.loadFromFile(fileName)
+        missionController.sendToVehicle()
         fitViewportToMissionItems()
         _currentMissionItem = _visualItems.get(0)
     }
@@ -648,18 +649,6 @@ QGCView {
                     anchors.top:        ScreenTools.isShortScreen ? parent.top : planLabel.bottom
                     spacing:            ScreenTools.defaultFontPixelHeight
                     z:                  QGroundControl.zOrderWidgets
-
-                    RoundButton {
-                        id:             missionStart
-                        buttonImage:    "/res/Play"
-                        lightBorders:   _lightWidgetBorders
-                        visible: _activeVehicle && !_syncDropDownController.syncInProgress
-                        onClicked: {
-                            _syncDropDownController.sendToVehicle()
-                            showFlyView()
-                            checked = false
-                        }
-                    }
 
                     RoundButton {
                         id:             addMissionItemsButton
