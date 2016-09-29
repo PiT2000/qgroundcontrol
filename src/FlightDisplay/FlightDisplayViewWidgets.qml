@@ -172,7 +172,7 @@ Item {
         visible:            _mainIsMap
         //-- Mission Selector Control
         DropButton {
-            id:                 preMissionSelectorButton
+            id:                 missionSelectorButton
             dropDirection:      dropRight
             buttonImage:        "/qmlimages/MapSync.svg"
             viewportMargins:    ScreenTools.defaultFontPixelWidth / 2
@@ -180,9 +180,9 @@ Item {
             z:                  QGroundControl.zOrderWidgets
             lightBorders:       _lightWidgetBorders
             FolderListModel {
-                id:             preMissionListModel
+                id:             missionListModel
                 showDirs:       false
-                nameFilters:    "*"
+                nameFilters:    "*.mission"
                 folder:         "file:"+QGroundControl.tsuruManager.missionPath
             }
             dropDownComponent: Component {
@@ -195,7 +195,7 @@ Item {
                         id: view
                         clip:           true
                         spacing:        ScreenTools.defaultFontPixelHeight / 2
-                        model:          preMissionListModel
+                        model:          missionListModel
                         width:          parent.width
                         height:         model.count < 10 ? ScreenTools.defaultFontPixelHeight * 1.5 * model.count : ScreenTools.defaultFontPixelHeight * 1.5 * 10
                         delegate: QGCButton {
@@ -210,12 +210,12 @@ Item {
         }
         //-- Play
         RoundButton {
-            id:             missionStart
+            id:             startButton
             buttonImage:    "/res/Play"
             lightBorders:   _lightWidgetBorders
             visible:        !ScreenTools.isTinyScreen && _mainIsMap && _activeVehicle
             onClicked: {
-                checked = false
+                QGroundControl.tsuruManager.startMission()
             }
         }
         //-- Pause
@@ -227,14 +227,7 @@ Item {
             exclusiveGroup:     _pause
             lightBorders:       _lightWidgetBorders
             onClicked: {
-                if( QGroundControl.multiVehicleManager.activeVehicle.flightMode == "Manual") {
-                    QGroundControl.multiVehicleManager.activeVehicle.flightMode = "Stabilized"
-                    checked = true
-                }
-                else if (QGroundControl.multiVehicleManager.activeVehicle.flightMode = "Stabilized") {
-                    QGroundControl.multiVehicleManager.activeVehicle.flightMode = "Manual"
-                    checked = false
-                }
+                QGroundControl.tsuruManager.pauseMission()
             }
         }
         //-- Stop
@@ -246,18 +239,7 @@ Item {
             exclusiveGroup:     _stop
             lightBorders:       _lightWidgetBorders
             onClicked: {
-                if( QGroundControl.multiVehicleManager.activeVehicle.flightMode == "Manual") {
-                    QGroundControl.multiVehicleManager.activeVehicle.flightMode = "Return"
-                    checked = false
-                    pauseButton.checked  = false
-                    pauseButton.enabeled = false
-                }
-                else if (QGroundControl.multiVehicleManager.activeVehicle.flightMode == "Return") {
-                    QGroundControl.multiVehicleManager.activeVehicle.flightMode = "Manual"
-                    checked = true
-                    pauseButton.checked  = false
-                    pauseButton.enabeled = true
-                }
+                QGroundControl.tsuruManager.abortMission()
             }
         }
         //-- Screen shoot
@@ -269,14 +251,7 @@ Item {
             exclusiveGroup:     _photo
             lightBorders:       _lightWidgetBorders
             onClicked: {
-                if( QGroundControl.multiVehicleManager.activeVehicle.flightMode == "Manual") {
-                    QGroundControl.multiVehicleManager.activeVehicle.flightMode = "Return"
-                    checked = false
-                }
-                else if (QGroundControl.multiVehicleManager.activeVehicle.flightMode == "Return") {
-                    QGroundControl.multiVehicleManager.activeVehicle.flightMode = "Manual"
-                    checked = true
-                }
+                QGroundControl.tsuruManager.screenShot()
             }
         }
         //-- Map Center Control

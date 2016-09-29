@@ -2,6 +2,7 @@
 #define TSURUMANAGER_H
 
 #include <QObject>
+#include <QDebug>
 #include "QGCToolbox.h"
 
 class TsuruManager : public QGCTool
@@ -10,15 +11,19 @@ class TsuruManager : public QGCTool
 public:
     explicit TsuruManager(QGCApplication* app);
     ~TsuruManager();
+    //-- Constant property
     Q_PROPERTY(bool isEditor READ isEditor CONSTANT)
-//    Q_PROPERTY(bool flightResolved READ flightResolved WRITE setFlightResolved NOTIFY flightResolvedChanged)
-    Q_PROPERTY(QString missionPath READ missionPath WRITE setMissionPath NOTIFY missionPathChanged)
-    Q_PROPERTY(QStringList missionList READ missionList WRITE setMissionList NOTIFY missionListChanged)
+    //
+    Q_PROPERTY(QString      missionPath READ missionPath WRITE setMissionPath NOTIFY missionPathChanged)
+
+    Q_INVOKABLE void startMission() {qDebug()<<"START";}
+    Q_INVOKABLE void pauseMission() {qDebug()<<"PAUSE";}
+    Q_INVOKABLE void abortMission() {qDebug()<<"ABOTR";}
+    Q_INVOKABLE void screenShot()   {qDebug()<<"SCREENHOOT";}
 
     bool isEditor(void) { return _isEditor; }
 
     QString missionPath() { return _missionPath; }
-    QStringList missionList() { return _missionList; }
 
 
     // Override from QGCTool
@@ -26,16 +31,13 @@ public:
 
 public slots:
     void setMissionPath(QString value);
-    void setMissionList(QStringList value) { _missionList = value; emit missionListChanged(value);}
 
 private:
     bool _isEditor;
     QString _missionPath;
-    QStringList _missionList;
 
 signals:
     void missionPathChanged(QString value);
-    void missionListChanged(QStringList value);
 };
 
 #endif // TSURUMANAGER_H
