@@ -194,6 +194,7 @@ Item {
                     ListView {
                         id: view
                         clip:           true
+                        spacing:        ScreenTools.defaultFontPixelHeight / 2
                         model:          preMissionListModel
                         width:          parent.width
                         height:         model.count < 10 ? ScreenTools.defaultFontPixelHeight * 1.5 * model.count : ScreenTools.defaultFontPixelHeight * 1.5 * 10
