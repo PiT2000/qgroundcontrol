@@ -57,6 +57,30 @@ void WeatherStation::setToolbox(QGCToolbox *toolbox)
     qmlRegisterUncreatableType<WeatherStation>("QGroundControl.WeatherStation", 1, 0, "WeatherStation", "Reference only");
 }
 
+void WeatherStation::setTemperature(qreal value)
+{
+    _temperature = value;
+    setTemperatureWar( temperatureMin() < _temperature && _temperature < temperatureMax() );
+    setFlightResolved( temperatureWar() && precipitationWar() && windSpeedWar() );
+    emit temperatureChanged( _temperature );
+}
+
+void WeatherStation::setPrecipitation(qreal value)
+{
+    _precipitation = value;
+    setPrecipitationWar( _precipitation < precipitationMax() );
+    setFlightResolved( temperatureWar() && precipitationWar() && windSpeedWar() );
+    emit precipitationChanged( _precipitation );
+}
+
+void WeatherStation::setWindSpeed(qreal value)
+{
+    _windSpeed = value;
+    setWindSpeedWar( _windSpeed < windSpeedMax() );
+    setFlightResolved( temperatureWar() && precipitationWar() && windSpeedWar() );
+    emit windSpeedChanged( _windSpeed );
+}
+
 void WeatherStation::openPort()
 {
     QSettings settings;
@@ -71,6 +95,7 @@ void WeatherStation::openPort()
                         this,   SLOT    ( readData  () ));
             setPortError(  _portName+": "+_port->errorString() );
             setPortReady( false );
+            setFlightResolved( false );
             _port->close();
         }
         if(_port->portName() != _portName)
@@ -79,6 +104,7 @@ void WeatherStation::openPort()
                         this,   SLOT    ( readData  () ));
             setPortError(  _portName+": "+_port->errorString() );
             setPortReady( false );
+            setFlightResolved( false );
             _port->close();
         }
     }
@@ -99,18 +125,21 @@ void WeatherStation::openPort()
                 connect( _port, SIGNAL  ( readyRead  () ),
                          this,  SLOT    ( readData   () ));
                 setPortError( "No error" );
-                setPortReady(true);
+                setPortReady( true );
+                setFlightResolved( true );
             }
             else
             {//порт не открылся
                 setPortError( _portName+": "+_port->errorString() );
-                setPortReady(false);
+                setPortReady( false );
+                setFlightResolved( false );
             }
         }
         else
         {//нет имени
             setPortError( tr("Not selected port") );
-            setPortReady(false);
+            setPortReady( false );
+            setFlightResolved( false );
         }
     }
 }

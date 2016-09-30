@@ -71,22 +71,22 @@ public:
 
 public slots:
     //Установка свойств телеметрии
-    void setTemperature     ( qreal value ) { _temperature          = value; emit temperatureChanged        ( value );}
+    void setTemperature     ( qreal value );
     void setPressure        ( qreal value ) { _pressure             = value; emit pressureChanged           ( value );}
     void setRelativeHumidity( qreal value ) { _relativeHumidity     = value; emit relativeHumidityChanged   ( value );}
-    void setPrecipitation   ( qreal value ) { _precipitation        = value; emit precipitationChanged      ( value );}
+    void setPrecipitation   ( qreal value );
     void setWindDirection   ( qreal value ) { _windDirection        = value; emit windDirectionChanged      ( value );}
-    void setWindSpeed       ( qreal value ) { _windSpeed            = value; emit windSpeedChanged          ( value );}
+    void setWindSpeed       ( qreal value );
     //Установка предельных значений
     void setTemperatureMax  ( qreal value );
     void setTemperatureMin  ( qreal value );
     void setPrecipitationMax( qreal value );
     void setWindSpeedMax    ( qreal value );
     //Установка разрешений вылета
-    void setFlightResolved  ( qreal value ) { _flightResolved       = value; emit flightResolvedChanged (value);}
-    void setTemperatureWar  ( qreal value ) { _temperatureWar       = value; emit temperatureWarChanged (value);}
-    void setPrecipitationWar( qreal value ) { _precipitationWar     = value; emit precipitationWarChanged(value);}
-    void setWindSpeedWar    ( qreal value ) { _windSpeedWar         = value; emit windSpeedWarChanged   (value);}
+    void setFlightResolved  ( bool value ) { _flightResolved       = value; emit flightResolvedChanged (value);}
+    void setTemperatureWar  ( bool value ) { _temperatureWar       = value; emit temperatureWarChanged (value);}
+    void setPrecipitationWar( bool value ) { _precipitationWar     = value; emit precipitationWarChanged(value);}
+    void setWindSpeedWar    ( bool value ) { _windSpeedWar         = value; emit windSpeedWarChanged   (value);}
     //Установка свойств порта
     void setPortName        ( QString value );
     void setPortError       ( QString value ) { _portError    = value; emit portErrorChanged      ( value );}
@@ -110,10 +110,10 @@ signals:
     void precipitationMaxChanged( qreal value );
     void windSpeedMaxChanged    ( qreal value );
     //Сигналы об изменении разрешений вылета
-    void flightResolvedChanged  ( qreal value );
-    void temperatureWarChanged  ( qreal value );
-    void precipitationWarChanged( qreal value );
-    void windSpeedWarChanged    ( qreal value );
+    void flightResolvedChanged  ( bool value );
+    void temperatureWarChanged  ( bool value );
+    void precipitationWarChanged( bool value );
+    void windSpeedWarChanged    ( bool value );
     //Сигналы об изменении свойств порта
     void portNameChanged        ( QString value );
     void portErrorChanged       ( QString value );

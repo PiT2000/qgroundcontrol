@@ -68,7 +68,7 @@ Rectangle {
             height: _defaultTextHeight*1.5
             radius: _defaultTextWidth
             Layout.rowSpan: 2
-            color: QGroundControl.weatherStation.flightResolved ? "#00ff00" : "#ff0000"
+            color: QGroundControl.weatherStation.temperatureWar ? "#00ff00" : "#ff0000"
         }
         QGCLabel {
             Layout.alignment:   Qt.AlignVCenter | Qt.AlignHCenter
@@ -91,7 +91,7 @@ Rectangle {
             height: _defaultTextHeight*1.5
             radius: _defaultTextWidth
             Layout.rowSpan: 2
-            color: QGroundControl.weatherStation.flightResolved ? "#00ff00" : "#ff0000"
+            color: QGroundControl.weatherStation.precipitationWar ? "#00ff00" : "#ff0000"
         }
         QGCLabel {
             Layout.alignment:   Qt.AlignVCenter | Qt.AlignHCenter
@@ -114,7 +114,7 @@ Rectangle {
             height: _defaultTextHeight*1.5
             radius: _defaultTextWidth
             Layout.rowSpan: 2
-            color: QGroundControl.weatherStation.flightResolved ? "#00ff00" : "#ff0000"
+            color: QGroundControl.weatherStation.windSpeedWar ? "#00ff00" : "#ff0000"
         }
         QGCLabel {
             Layout.alignment:   Qt.AlignVCenter | Qt.AlignHCenter
