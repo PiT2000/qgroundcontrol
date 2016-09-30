@@ -125,8 +125,8 @@ void WeatherStation::readData()
             setPressure(list[1].toDouble());
             setRelativeHumidity(list[2].toDouble());
             setPrecipitation(list[3].toDouble());
-            setWindDirection(list[4].toDouble());
-            setWindSpeed(list[5].toDouble());
+            setWindSpeed(list[4].toDouble());
+            setWindDirection(list[5].toDouble());
         }
         _bufer.clear();
     }
