@@ -178,6 +178,7 @@ Item {
             viewportMargins:    ScreenTools.defaultFontPixelWidth / 2
             exclusiveGroup:     _dropButtonsExclusiveGroup
             z:                  QGroundControl.zOrderWidgets
+            visible:            !ScreenTools.isTinyScreen && _mainIsMap && _activeVehicle
             lightBorders:       _lightWidgetBorders
             FolderListModel {
                 id:             missionListModel
