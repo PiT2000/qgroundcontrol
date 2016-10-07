@@ -198,7 +198,7 @@ Item {
                         spacing:        ScreenTools.defaultFontPixelHeight / 2
                         model:          missionListModel
                         width:          parent.width
-                        height:         model.count < 10 ? ScreenTools.defaultFontPixelHeight * 1.5 * model.count : ScreenTools.defaultFontPixelHeight * 1.5 * 10
+                        height:         model.count < 7 ? ScreenTools.defaultFontPixelHeight * 1.5 * model.count : ScreenTools.defaultFontPixelHeight * 1.5 * 7
                         delegate: QGCButton {
                             width:      parent.width
                             height:     ScreenTools.defaultFontPixelHeight * 1.5
