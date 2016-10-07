@@ -16,10 +16,11 @@ public:
     //
     Q_PROPERTY(QString      missionPath READ missionPath WRITE setMissionPath NOTIFY missionPathChanged)
 
-    Q_INVOKABLE void startMission() {qDebug()<<"START";}
-    Q_INVOKABLE void pauseMission() {qDebug()<<"PAUSE";}
-    Q_INVOKABLE void abortMission() {qDebug()<<"ABOTR";}
-    Q_INVOKABLE void screenShot()   {qDebug()<<"SCREENHOOT";}
+    Q_INVOKABLE void startMission();
+    Q_INVOKABLE void pauseMission();
+    Q_INVOKABLE void abortMission();
+    Q_INVOKABLE void goToLand();
+    Q_INVOKABLE void screenShot();
 
     bool isEditor(void) { return _isEditor; }
 
@@ -35,6 +36,7 @@ public slots:
 private:
     bool _isEditor;
     QString _missionPath;
+    QGCToolbox* _toolbox;
 
 signals:
     void missionPathChanged(QString value);
