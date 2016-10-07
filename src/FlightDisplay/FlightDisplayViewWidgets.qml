@@ -233,7 +233,7 @@ Item {
         }
         //-- Stop
         RoundButton {
-            id:                 stopButton
+            id:                 abortButton
             visible:            !ScreenTools.isTinyScreen && _mainIsMap && _activeVehicle
             buttonImage:        "/res/Stop"
             z:                  QGroundControl.zOrderWidgets
@@ -241,6 +241,18 @@ Item {
             lightBorders:       _lightWidgetBorders
             onClicked: {
                 QGroundControl.tsuruManager.abortMission()
+            }
+        }
+        //-- Land
+        RoundButton {
+            id:                 landButton
+            visible:            !ScreenTools.isTinyScreen && _mainIsMap && _activeVehicle
+            buttonImage:        "/qmlimages/LandModeCopter.svg"
+            z:                  QGroundControl.zOrderWidgets
+            exclusiveGroup:     _stop
+            lightBorders:       _lightWidgetBorders
+            onClicked: {
+                QGroundControl.tsuruManager.goToLand()
             }
         }
         //-- Screen shoot
