@@ -602,7 +602,7 @@
     <message>
         <location filename="../src/ui/MainWindow.ui" line="59"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл</translation>
     </message>
     <message>
         <location filename="../src/ui/MainWindow.ui" line="69"/>
@@ -612,7 +612,7 @@
     <message>
         <location filename="../src/ui/MainWindow.ui" line="78"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Выход</translation>
     </message>
     <message>
         <location filename="../src/ui/MainWindow.ui" line="81"/>
@@ -760,12 +760,12 @@
 <context>
     <name>QGCApplication</name>
     <message>
-        <location filename="../src/QGCApplication.cc" line="557"/>
+        <location filename="../src/QGCApplication.cc" line="558"/>
         <source>Save Flight Data Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/QGCApplication.cc" line="559"/>
+        <location filename="../src/QGCApplication.cc" line="560"/>
         <source>Flight Data Log Files (*.mavlink)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1722,47 +1722,47 @@ Do you want to replace it?</source>
 <context>
     <name>QGroundControlQmlGlobal</name>
     <message>
-        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="241"/>
+        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="245"/>
         <source>ArduPilot Firmware</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="241"/>
+        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="245"/>
         <source>PX4 Pro Firmware</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="241"/>
+        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="245"/>
         <source>Mavlink Generic Firmware</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="260"/>
+        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="264"/>
         <source>Fixedwing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="260"/>
+        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="264"/>
         <source>Multicopter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="260"/>
+        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="264"/>
         <source>VTOL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="260"/>
+        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="264"/>
         <source>Rover</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="260"/>
+        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="264"/>
         <source>Sub</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="357"/>
+        <location filename="../src/QmlControls/QGroundControlQmlGlobal.cc" line="361"/>
         <source>Percent announce</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2251,6 +2251,14 @@ Do you want to replace it?</source>
     <message>
         <location filename="../src/Vehicle/Vehicle.cc" line="1580"/>
         <source>Onboard ADSB peripheral</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WeatherStation</name>
+    <message>
+        <location filename="../src/WeatherStation/WeatherStation.cpp" line="140"/>
+        <source>Not selected port</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
