@@ -317,6 +317,36 @@ Item {
                         id:                 title
                         text:               qsTr("Camera control")
                     }
+                    Grid {
+                        columns: 3
+                        spacing: ScreenTools.defaultFontPixelWidth / 2
+                        RoundButton {
+//                            id:                 landButton
+//                            buttonImage:        "/qmlimages/LandModeCopter.svg"
+                            lightBorders:       _lightWidgetBorders
+                            onClicked: {}
+                        }
+                        RoundButton {
+                            lightBorders:       _lightWidgetBorders
+                            onClicked: {}
+                        }
+                        RoundButton {
+                            lightBorders:       _lightWidgetBorders
+                            onClicked: {}
+                        }
+                        RoundButton {
+                            lightBorders:       _lightWidgetBorders
+                            onClicked: {}
+                        }
+                        RoundButton {
+                            lightBorders:       _lightWidgetBorders
+                            onClicked: {}
+                        }
+                        RoundButton {
+                            lightBorders:       _lightWidgetBorders
+                            onClicked: {}
+                        }
+                    }
                 }
             }
         }
