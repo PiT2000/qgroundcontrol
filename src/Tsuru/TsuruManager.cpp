@@ -33,10 +33,17 @@ void TsuruManager::startMission()
     _toolbox->multiVehicleManager()->activeVehicle()->setArmed(true);
 }
 
-void TsuruManager::pauseMission()
+void TsuruManager::pauseMission( bool value )
 {
-    qDebug()<<"PAUSE";
-    _toolbox->multiVehicleManager()->activeVehicle()->setFlightMode("Hold");
+    qDebug()<<"PAUSE" << value;
+    if(value)
+    {
+        _toolbox->multiVehicleManager()->activeVehicle()->setFlightMode("Hold");
+    }
+    else
+    {
+        _toolbox->multiVehicleManager()->activeVehicle()->setFlightMode("Mission");
+    }
 }
 
 void TsuruManager::abortMission()

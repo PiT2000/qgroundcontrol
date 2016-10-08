@@ -182,8 +182,13 @@ Item {
             viewportMargins:    ScreenTools.defaultFontPixelWidth / 2
             exclusiveGroup:     _missionSelector
             z:                  QGroundControl.zOrderWidgets
-            visible:            !ScreenTools.isTinyScreen && _mainIsMap && _activeVehicle
             lightBorders:       _lightWidgetBorders
+            visible: {
+                        !ScreenTools.isTinyScreen
+                        && _mainIsMap
+                        && _activeVehicle
+                        && !_activeVehicle.armed
+            }
             FolderListModel {
                 id:             missionListModel
                 showDirs:       false
@@ -207,7 +212,10 @@ Item {
                             width:      parent.width
                             height:     ScreenTools.defaultFontPixelHeight * 1.5
                             text:       model.fileBaseName
-                            onClicked:  loadPreMission(model.filePath)
+                            onClicked:  {
+                                loadPreMission(model.filePath)
+                                missionSelectorButton.checked = false
+                            }
                         }
                     }
                 }
@@ -218,57 +226,98 @@ Item {
             id:             startButton
             buttonImage:    "/res/Play"
             lightBorders:   _lightWidgetBorders
-            visible:        !ScreenTools.isTinyScreen && _mainIsMap && _activeVehicle
+            visible: {
+                        !ScreenTools.isTinyScreen
+                        && _mainIsMap
+                        && _activeVehicle
+                        && !_activeVehicle.armed
+                        && _activeVehicle.homePositionAvailable
+            }
             onClicked: {
-                QGroundControl.tsuruManager.startMission()
+                _activeVehicle.flightMode = "Mission"
+                _activeVehicle.armed = true
+                checked = false
             }
         }
         //-- Pause
         RoundButton {
             id:                 pauseButton
-            visible:            !ScreenTools.isTinyScreen && _mainIsMap && _activeVehicle
             buttonImage:        "/res/Pause"
             z:                  QGroundControl.zOrderWidgets
             exclusiveGroup:     _pause
             lightBorders:       _lightWidgetBorders
+            visible: {
+                        !ScreenTools.isTinyScreen
+                        && _mainIsMap
+                        && _activeVehicle
+                        && _activeVehicle.armed
+                        && _activeVehicle.flightMode != "Return"
+                        && _activeVehicle.flightMode != "Land"
+            }
             onClicked: {
-                QGroundControl.tsuruManager.pauseMission()
+                if (_activeVehicle.flightMode == "Mission") {
+                    _activeVehicle.flightMode = "Hold"
+                } else if (_activeVehicle.flightMode == "Hold") {
+                    _activeVehicle.flightMode = "Mission"
+                }
             }
         }
         //-- Stop
         RoundButton {
             id:                 abortButton
-            visible:            !ScreenTools.isTinyScreen && _mainIsMap && _activeVehicle
             buttonImage:        "/res/Stop"
             z:                  QGroundControl.zOrderWidgets
             exclusiveGroup:     _stop
             lightBorders:       _lightWidgetBorders
+            visible: {
+                        !ScreenTools.isTinyScreen
+                        && _mainIsMap
+                        && _activeVehicle
+                        && _activeVehicle.armed
+                        && _activeVehicle.flightMode != "Return"
+                        && _activeVehicle.flightMode != "Land"
+            }
             onClicked: {
-                QGroundControl.tsuruManager.abortMission()
+                _activeVehicle.flightMode = "Return"
+                checked = false
             }
         }
         //-- Land
         RoundButton {
             id:                 landButton
-            visible:            !ScreenTools.isTinyScreen && _mainIsMap && _activeVehicle
             buttonImage:        "/qmlimages/LandModeCopter.svg"
             z:                  QGroundControl.zOrderWidgets
             exclusiveGroup:     _stop
             lightBorders:       _lightWidgetBorders
+            visible: {
+                        !ScreenTools.isTinyScreen
+                        && _mainIsMap
+                        && _activeVehicle
+                        && _activeVehicle.armed
+                        && _activeVehicle.flightMode != "Land"
+            }
             onClicked: {
-                QGroundControl.tsuruManager.goToLand()
+                _activeVehicle.flightMode = "Land"
+                checked = false
             }
         }
-        //-- Screen shoot
-        RoundButton {
-            id:                 photoButton
+        //-- Camera control
+        DropButton {
+            id:                 cameraButton
             visible:            !ScreenTools.isTinyScreen && _mainIsMap && _activeVehicle
             buttonImage:        "/qmlimages/CameraComponentIcon.png"
+            dropDirection:      dropRight
+            viewportMargins:    ScreenTools.defaultFontPixelWidth / 2
             z:                  QGroundControl.zOrderWidgets
             exclusiveGroup:     _photo
             lightBorders:       _lightWidgetBorders
-            onClicked: {
-                QGroundControl.tsuruManager.screenShot()
+            dropDownComponent: Component {
+                Column {
+                    QGCLabel {
+                        id:                 title
+                        text:               qsTr("Camera control")
+                    }
+                }
             }
         }
         //-- Map Center Control
