@@ -27,7 +27,7 @@ public:
     Q_PROPERTY(TsuruState   state       READ state          WRITE setState          NOTIFY stateChanged)
 
     Q_INVOKABLE void startMission();
-    Q_INVOKABLE void pauseMission( bool value);
+    Q_INVOKABLE void pauseMission();
     Q_INVOKABLE void abortMission();
     Q_INVOKABLE void goToLand();
     Q_INVOKABLE void screenShot();

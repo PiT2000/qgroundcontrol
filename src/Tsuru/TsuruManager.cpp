@@ -29,38 +29,27 @@ TsuruManager::~TsuruManager()
 void TsuruManager::startMission()
 {
     qDebug()<<"START";
-    _toolbox->multiVehicleManager()->activeVehicle()->setFlightMode("Mission");
-    _toolbox->multiVehicleManager()->activeVehicle()->setArmed(true);
 }
 
-void TsuruManager::pauseMission( bool value )
+void TsuruManager::pauseMission()
 {
-    qDebug()<<"PAUSE" << value;
-    if(value)
-    {
-        _toolbox->multiVehicleManager()->activeVehicle()->setFlightMode("Hold");
-    }
-    else
-    {
-        _toolbox->multiVehicleManager()->activeVehicle()->setFlightMode("Mission");
-    }
+    qDebug()<<"PAUSE";
 }
 
 void TsuruManager::abortMission()
 {
     qDebug()<<"ABOTR";
-    _toolbox->multiVehicleManager()->activeVehicle()->setFlightMode("Return");
 }
 
 void TsuruManager::goToLand()
 {
     qDebug()<<"GO TO LAND";
-    _toolbox->multiVehicleManager()->activeVehicle()->setFlightMode("Land");
 }
 
 void TsuruManager::screenShot()
 {
     qDebug()<<"SCREENHOOT";
+    //_toolbox->multiVehicleManager()->activeVehicle()->sendMessageMultiple();
 }
 
 void TsuruManager::setToolbox(QGCToolbox *toolbox)

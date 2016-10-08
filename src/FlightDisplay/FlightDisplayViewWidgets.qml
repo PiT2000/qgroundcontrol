@@ -313,36 +313,50 @@ Item {
             lightBorders:       _lightWidgetBorders
             dropDownComponent: Component {
                 Column {
+                    spacing: ScreenTools.defaultFontPixelWidth
+                    anchors.margins: ScreenTools.defaultFontPixelWidth
                     QGCLabel {
-                        id:                 title
-                        text:               qsTr("Camera control")
+                        id:             title
+                        text:           qsTr("Camera control")
+                        width:          parent.width
+                    }
+                    QGCButton {
+                        id:             shot
+                        text:           qsTr("Snapshot")
+                        width:          parent.width
+                        onClicked: {}
                     }
                     Grid {
                         columns: 3
-                        spacing: ScreenTools.defaultFontPixelWidth / 2
+                        spacing: ScreenTools.defaultFontPixelWidth
                         RoundButton {
-//                            id:                 landButton
-//                            buttonImage:        "/qmlimages/LandModeCopter.svg"
+                            buttonImage:        "/qmlimages/ZoomMinus.svg"
                             lightBorders:       _lightWidgetBorders
                             onClicked: {}
                         }
                         RoundButton {
+                            buttonImage:        "/qmlimages/ArrowToUp.svg"
                             lightBorders:       _lightWidgetBorders
                             onClicked: {}
                         }
                         RoundButton {
+                            buttonImage:        "/qmlimages/ZoomPlus.svg"
                             lightBorders:       _lightWidgetBorders
                             onClicked: {}
                         }
                         RoundButton {
+                            buttonImage:        "/qmlimages/ArrowToLeft.svg"
+                            lightBorders:       _lightWidgetBorders
+                            onClicked: {}
+                        }
+
+                        RoundButton {
+                            buttonImage:        "/qmlimages/ArrowToDown.svg"
                             lightBorders:       _lightWidgetBorders
                             onClicked: {}
                         }
                         RoundButton {
-                            lightBorders:       _lightWidgetBorders
-                            onClicked: {}
-                        }
-                        RoundButton {
+                            buttonImage:        "/qmlimages/ArrowToRight.svg"
                             lightBorders:       _lightWidgetBorders
                             onClicked: {}
                         }
