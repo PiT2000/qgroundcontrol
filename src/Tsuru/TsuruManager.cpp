@@ -49,7 +49,13 @@ void TsuruManager::goToLand()
 void TsuruManager::screenShot()
 {
     qDebug()<<"SCREENHOOT";
-    //_toolbox->multiVehicleManager()->activeVehicle()->sendMessageMultiple();
+}
+
+void TsuruManager::setServo(float servo, float pwm)
+{
+    qDebug()<<servo<<pwm;
+    Vehicle *_activeVehicle = _toolbox->multiVehicleManager()->activeVehicle();
+    _activeVehicle->doCommandLong(_activeVehicle->defaultComponentId(), MAV_CMD_DO_SET_SERVO, servo, pwm);
 }
 
 void TsuruManager::setToolbox(QGCToolbox *toolbox)

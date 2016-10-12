@@ -330,35 +330,71 @@ Item {
                         columns: 3
                         spacing: ScreenTools.defaultFontPixelWidth
                         RoundButton {
-                            buttonImage:        "/qmlimages/ZoomMinus.svg"
-                            lightBorders:       _lightWidgetBorders
-                            onClicked: {}
+                            buttonImage:    "/qmlimages/ZoomMinus.svg"
+                            lightBorders:   _lightWidgetBorders
+                            pressable:      true
+                            onPressed: {
+                                QGroundControl.tsuruManager.setServo(0.0, 1200)
+                            }
+                            onReleased: {
+                                QGroundControl.tsuruManager.setServo(0.0, 1500)
+                            }
                         }
                         RoundButton {
-                            buttonImage:        "/qmlimages/ArrowToUp.svg"
-                            lightBorders:       _lightWidgetBorders
-                            onClicked: {}
+                            buttonImage:    "/qmlimages/ArrowToUp.svg"
+                            lightBorders:   _lightWidgetBorders
+                            pressable:      true
+                            onPressed: {
+                                QGroundControl.tsuruManager.setServo(4.0, 1200)
+                            }
+                            onReleased: {
+                                QGroundControl.tsuruManager.setServo(4.0, 1500)
+                            }
                         }
                         RoundButton {
-                            buttonImage:        "/qmlimages/ZoomPlus.svg"
-                            lightBorders:       _lightWidgetBorders
-                            onClicked: {}
+                            buttonImage:    "/qmlimages/ZoomPlus.svg"
+                            lightBorders:   _lightWidgetBorders
+                            pressable:      true
+                            onPressed: {
+                                QGroundControl.tsuruManager.setServo(0.0, 1800)
+                            }
+                            onReleased: {
+                                QGroundControl.tsuruManager.setServo(0.0, 1500)
+                            }
                         }
                         RoundButton {
-                            buttonImage:        "/qmlimages/ArrowToLeft.svg"
-                            lightBorders:       _lightWidgetBorders
-                            onClicked: {}
+                            buttonImage:    "/qmlimages/ArrowToLeft.svg"
+                            lightBorders:   _lightWidgetBorders
+                            pressable:      true
+                            onPressed: {
+                                QGroundControl.tsuruManager.setServo(8.0, 1200)
+                            }
+                            onReleased: {
+                                QGroundControl.tsuruManager.setServo(8.0, 1500)
+                            }
                         }
 
                         RoundButton {
-                            buttonImage:        "/qmlimages/ArrowToDown.svg"
-                            lightBorders:       _lightWidgetBorders
-                            onClicked: {}
+                            buttonImage:    "/qmlimages/ArrowToDown.svg"
+                            lightBorders:   _lightWidgetBorders
+                            pressable:      true
+                            onPressed: {
+                                QGroundControl.tsuruManager.setServo(4.0, 1800)
+                            }
+                            onReleased: {
+                                QGroundControl.tsuruManager.setServo(4.0, 1500)
+                            }
                         }
                         RoundButton {
-                            buttonImage:        "/qmlimages/ArrowToRight.svg"
-                            lightBorders:       _lightWidgetBorders
-                            onClicked: {}
+                            buttonImage:    "/qmlimages/ArrowToRight.svg"
+                            lightBorders:   _lightWidgetBorders
+                            pressable:      true
+                            onPressed: {
+                                QGroundControl.tsuruManager.setServo(8.0, 1800)
+                            }
+                            onReleased: {
+                                QGroundControl.tsuruManager.setServo(8.0, 1500)
+                            }
                         }
                     }
                 }
