@@ -9,10 +9,13 @@ Item {
     id: _root
 
     signal          clicked()
+    signal          pressed()
+    signal          released()
     property alias  buttonImage:    button.source
     property real   radius:         ScreenTools.isMobile ? ScreenTools.defaultFontPixelHeight * 1.75 : ScreenTools.defaultFontPixelHeight * 1.25
     property bool   rotateImage:    false
     property bool   lightBorders:   true
+    property bool   pressable:      false
 
     width:  radius * 2
     height: radius * 2
@@ -65,8 +68,24 @@ Item {
             MouseArea {
                 anchors.fill:   parent
                 onClicked: {
-                    checked = !checked
-                    _root.clicked()
+                    if(!pressable) {
+                        checked = !checked
+                        _root.clicked()
+                    }
+                }
+                onPressed: {
+                    if(pressable)
+                    {
+                        checked = true
+                        _root.pressed()
+                    }
+                }
+                onReleased: {
+                    if(pressable)
+                    {
+                        checked = false
+                        _root.released()
+                    }
                 }
             }
         }
