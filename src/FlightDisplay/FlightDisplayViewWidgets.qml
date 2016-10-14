@@ -405,6 +405,14 @@ Item {
                             }
                         }
                     }
+                    QGCButton {
+                        id:             chanel
+                        text:           qsTr("Change video chanel")
+                        width:          parent.width
+                        onClicked:      {
+                            QGroundControl.tsuruManager.setServo(0.0, 1200)
+                        }
+                    }
                 }
             }
         }
