@@ -188,6 +188,7 @@ Item {
                         && _mainIsMap
                         && _activeVehicle
                         && !_activeVehicle.armed
+                        && _activeVehicle.flightMode != "Land"
             }
             FolderListModel {
                 id:             missionListModel
@@ -232,6 +233,8 @@ Item {
                         && _activeVehicle
                         && !_activeVehicle.armed
                         && _activeVehicle.homePositionAvailable
+//                        && _activeVehicle.flightMode != "Return"
+                        && _activeVehicle.flightMode != "Land"
             }
             onClicked: {
                 _activeVehicle.flightMode = "Mission"
@@ -304,7 +307,12 @@ Item {
         //-- Camera control
         DropButton {
             id:                 cameraButton
-            visible:            !ScreenTools.isTinyScreen && _mainIsMap && _activeVehicle
+            visible: {
+                        !ScreenTools.isTinyScreen
+                        && _mainIsMap
+                        && _activeVehicle
+                        && _activeVehicle.armed
+            }
             buttonImage:        "/qmlimages/CameraComponentIcon.png"
             dropDirection:      dropRight
             viewportMargins:    ScreenTools.defaultFontPixelWidth / 2
@@ -853,6 +861,33 @@ Item {
             orientation:        Qt.Vertical
             minimumValue:       QGroundControl.metersToAppSettingsDistanceUnits(2)
             maximumValue:       QGroundControl.metersToAppSettingsDistanceUnits((_activeVehicle && _activeVehicle.flying) ? 100 : 10)
+        }
+    }
+
+    QGCLabel {
+        id: _mesasge
+        anchors.fill: parent
+        visible: {
+                    !ScreenTools.isTinyScreen
+                    && _mainIsMap
+                    && _activeVehicle
+                    && !_activeVehicle.armed
+                    && _activeVehicle.flightMode == "Land"
+        }
+        verticalAlignment:  Text.AlignVCenter
+        horizontalAlignment:Text.AlignHCenter
+        font.pointSize: ScreenTools.largeFontPointSize*3
+        text: {
+            if(_activeVehicle && _activeVehicle.coordinateValid) {
+                  qsTr("I made an emergency landing.\nMy coordinates: \n")
+                  + qsTr("Latitude:\n") +
+                  + _activeVehicle.latitude + "\n"
+                  + qsTr("Longitude:\n") +
+                  + _activeVehicle.longitude
+            }
+            else {
+                " "
+            }
         }
     }
 }
