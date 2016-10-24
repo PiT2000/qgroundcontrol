@@ -550,7 +550,7 @@ Item {
         height:                     guidedModeColumn.height + (_margins * 2)
         radius:                     ScreenTools.defaultFontPixelHeight * 0.25
         color:                      _lightWidgetBorders ? Qt.rgba(qgcPal.mapWidgetBorderLight.r, qgcPal.mapWidgetBorderLight.g, qgcPal.mapWidgetBorderLight.b, 0.8) : Qt.rgba(qgcPal.mapWidgetBorderDark.r, qgcPal.mapWidgetBorderDark.g, qgcPal.mapWidgetBorderDark.b, 0.75)
-        visible:                    _activeVehicle
+        visible:                    _activeVehicle && QGroundControl.tsuruManager.isEditor
         z:                          QGroundControl.zOrderWidgets
         state:                      "Shown"
 

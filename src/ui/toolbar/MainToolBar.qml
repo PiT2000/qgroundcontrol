@@ -374,7 +374,7 @@ Rectangle {
         id:                     vehicleIndicators
         height:                 mainWindow.tbCellHeight
         anchors.leftMargin:     mainWindow.tbSpacing * 2
-        anchors.left:           viewRow.right
+        anchors.left:           QGroundControl.tsuruManager.isEditor ? viewRow.right : parent.left
         anchors.right:          parent.right
         anchors.verticalCenter: parent.verticalCenter
 
@@ -382,8 +382,15 @@ Rectangle {
 
         Loader {
             source:                 activeVehicle && !parent.vehicleConnectionLost ? "MainToolBarIndicators.qml" : ""
-            anchors.left:           parent.left
             anchors.verticalCenter: parent.verticalCenter
+            onLoaded: {
+                if(QGroundControl.tsuruManager.isEditor) {
+                    anchors.left = parent.left
+                }
+                else {
+                    anchors.horizontalCenter = parent.horizontalCenter
+                }
+            }
         }
 
         QGCLabel {

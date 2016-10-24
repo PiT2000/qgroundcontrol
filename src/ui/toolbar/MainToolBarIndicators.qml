@@ -22,6 +22,7 @@ import QGroundControl.Palette       1.0
 Row {
     spacing:  tbSpacing * 2
 
+
     QGCPalette { id: qgcPal }
 
     //-------------------------------------------------------------------------
@@ -73,7 +74,7 @@ Row {
         id:         messages
         width:      mainWindow.tbCellHeight
         height:     mainWindow.tbCellHeight
-        visible:    activeVehicle && activeVehicle.messageCount
+        visible:    activeVehicle && activeVehicle.messageCount && QGroundControl.tsuruManager.isEditor
         anchors.verticalCenter: parent.verticalCenter
         Item {
             id:                 criticalMessage
@@ -92,7 +93,7 @@ Row {
         }
         Item {
             anchors.fill:       parent
-            visible:            !criticalMessage.visible
+            visible:            !criticalMessage.visible 
             QGCColoredImage {
                 id:         messageIcon
                 source:     "/qmlimages/Megaphone.svg"
@@ -323,6 +324,7 @@ Row {
         width:  selectorRow.width * 1.1
         height: mainWindow.tbCellHeight
         anchors.verticalCenter: parent.verticalCenter
+        visible: QGroundControl.tsuruManager.isEditor
 
         Row {
             id:                 selectorRow
