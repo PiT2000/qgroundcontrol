@@ -173,7 +173,7 @@ Item {
         anchors.top:        ScreenTools.isShortScreen ? parent.top : flyLabel.bottom
         anchors.bottom:     parent.bottom
         spacing:            ScreenTools.defaultFontPixelHeight
-        visible:            _mainIsMap
+//        visible:            _mainIsMap
         //-- Mission Selector Control
         DropButton {
             id:                 missionSelectorButton
@@ -181,11 +181,9 @@ Item {
             buttonImage:        "/qmlimages/MapSync.svg"
             viewportMargins:    ScreenTools.defaultFontPixelWidth / 2
             exclusiveGroup:     _missionSelector
-            z:                  QGroundControl.zOrderWidgets
             lightBorders:       _lightWidgetBorders
             visible: {
                         !ScreenTools.isTinyScreen
-                        && _mainIsMap
                         && _activeVehicle
                         && !_activeVehicle.armed
                         && _activeVehicle.flightMode != "Land"
@@ -229,7 +227,6 @@ Item {
             lightBorders:   _lightWidgetBorders
             visible: {
                         !ScreenTools.isTinyScreen
-                        && _mainIsMap
                         && _activeVehicle
                         && !_activeVehicle.armed
                         && _activeVehicle.homePositionAvailable
@@ -246,12 +243,10 @@ Item {
         RoundButton {
             id:                 pauseButton
             buttonImage:        "/res/Pause"
-            z:                  QGroundControl.zOrderWidgets
             exclusiveGroup:     _pause
             lightBorders:       _lightWidgetBorders
             visible: {
                         !ScreenTools.isTinyScreen
-                        && _mainIsMap
                         && _activeVehicle
                         && _activeVehicle.armed
                         && _activeVehicle.flightMode != "Return"
@@ -269,12 +264,10 @@ Item {
         RoundButton {
             id:                 abortButton
             buttonImage:        "/res/Stop"
-            z:                  QGroundControl.zOrderWidgets
             exclusiveGroup:     _stop
             lightBorders:       _lightWidgetBorders
             visible: {
                         !ScreenTools.isTinyScreen
-                        && _mainIsMap
                         && _activeVehicle
                         && _activeVehicle.armed
                         && _activeVehicle.flightMode != "Return"
@@ -289,12 +282,10 @@ Item {
         RoundButton {
             id:                 landButton
             buttonImage:        "/qmlimages/LandModeCopter.svg"
-            z:                  QGroundControl.zOrderWidgets
             exclusiveGroup:     _stop
             lightBorders:       _lightWidgetBorders
             visible: {
                         !ScreenTools.isTinyScreen
-                        && _mainIsMap
                         && _activeVehicle
                         && _activeVehicle.armed
                         && _activeVehicle.flightMode != "Land"
@@ -309,7 +300,6 @@ Item {
             id:                 cameraButton
 //            visible: {
 //                        !ScreenTools.isTinyScreen
-//                        && _mainIsMap
 //                        && _activeVehicle
 //                        && _activeVehicle.armed
 //            }
@@ -317,7 +307,6 @@ Item {
             buttonImage:        "/qmlimages/CameraComponentIcon.png"
             dropDirection:      dropRight
             viewportMargins:    ScreenTools.defaultFontPixelWidth / 2
-            z:                  QGroundControl.zOrderWidgets
             exclusiveGroup:     _photo
             lightBorders:       _lightWidgetBorders
             dropDownComponent: Component {
