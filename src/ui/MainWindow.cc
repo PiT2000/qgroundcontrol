@@ -31,6 +31,7 @@
 #include "MAVLinkProtocol.h"
 #include "MainWindow.h"
 #include "GAudioOutput.h"
+#include "TsuruManager.h"
 #ifndef __mobile__
 #include "QGCMAVLinkLogPlayer.h"
 #endif
@@ -98,6 +99,7 @@ MainWindow* MainWindow::_create()
 {
     Q_ASSERT(_instance == NULL);
     new MainWindow();
+    _instance->menuBar()->setVisible(qgcApp()->toolbox()->tsuruManager()->isEditor());
     // _instance is set in constructor
     Q_ASSERT(_instance);
     return _instance;
