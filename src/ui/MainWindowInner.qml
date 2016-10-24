@@ -220,7 +220,9 @@ Item {
             messageQueue.push(message)
         } else {
             criticalMessageText.text = message
-            criticalMmessageArea.visible = true
+            if(QGroundControl.tsuruManager.isEditor) {
+                criticalMmessageArea.visible = true
+            }
         }
     }
 
