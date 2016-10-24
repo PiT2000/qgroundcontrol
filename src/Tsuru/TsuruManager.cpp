@@ -51,11 +51,28 @@ void TsuruManager::screenShot()
     qDebug()<<"SCREENHOOT";
 }
 
-void TsuruManager::setServo(float servo, float pwm)
+void TsuruManager::setServo(int chanel, float aux)
 {
-    qDebug()<<servo<<pwm;
+//    qDebug()<<chanel<<aux;
     Vehicle *_activeVehicle = _toolbox->multiVehicleManager()->activeVehicle();
-    _activeVehicle->doCommandLong(_activeVehicle->defaultComponentId(), MAV_CMD_DO_SET_SERVO, servo, pwm);
+    mavlink_set_actuator_control_target_t packet = {
+        93372036854775807ULL,
+        {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
+        2,
+        _activeVehicle->id(),
+        _activeVehicle->defaultComponentId()
+    };
+    packet.controls[chanel] = aux;
+    mavlink_message_t msg;
+    mavlink_msg_set_actuator_control_target_encode(_toolbox->mavlinkProtocol()->getSystemId(),
+                                                   _activeVehicle->defaultComponentId(),
+                                                   &msg,
+                                                   &packet );
+    _activeVehicle->sendMessageOnLink(_activeVehicle->priorityLink(), msg);
+    qDebug()<<packet.controls[0];
+    mavlink_set_actuator_control_target_t packet1;
+    mavlink_msg_set_actuator_control_target_decode(&msg, &packet1);
+    qDebug()<<packet.controls[0]<<packet1.controls[0];
 }
 
 void TsuruManager::setToolbox(QGCToolbox *toolbox)

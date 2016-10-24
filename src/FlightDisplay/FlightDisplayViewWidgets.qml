@@ -307,12 +307,13 @@ Item {
         //-- Camera control
         DropButton {
             id:                 cameraButton
-            visible: {
-                        !ScreenTools.isTinyScreen
-                        && _mainIsMap
-                        && _activeVehicle
-                        && _activeVehicle.armed
-            }
+//            visible: {
+//                        !ScreenTools.isTinyScreen
+//                        && _mainIsMap
+//                        && _activeVehicle
+//                        && _activeVehicle.armed
+//            }
+            visible: true
             buttonImage:        "/qmlimages/CameraComponentIcon.png"
             dropDirection:      dropRight
             viewportMargins:    ScreenTools.defaultFontPixelWidth / 2
@@ -342,10 +343,10 @@ Item {
                             lightBorders:   _lightWidgetBorders
                             pressable:      true
                             onPressed: {
-                                QGroundControl.tsuruManager.setServo(0.0, 1200)
+                                QGroundControl.tsuruManager.setServo(0, -1.0)
                             }
                             onReleased: {
-                                QGroundControl.tsuruManager.setServo(0.0, 1500)
+                                QGroundControl.tsuruManager.setServo(0, 0.0)
                             }
                         }
                         RoundButton {
@@ -353,10 +354,10 @@ Item {
                             lightBorders:   _lightWidgetBorders
                             pressable:      true
                             onPressed: {
-                                QGroundControl.tsuruManager.setServo(4.0, 1200)
+                                QGroundControl.tsuruManager.setServo(1, 1.0)
                             }
                             onReleased: {
-                                QGroundControl.tsuruManager.setServo(4.0, 1500)
+                                QGroundControl.tsuruManager.setServo(1, 0.0)
                             }
                         }
                         RoundButton {
@@ -364,10 +365,10 @@ Item {
                             lightBorders:   _lightWidgetBorders
                             pressable:      true
                             onPressed: {
-                                QGroundControl.tsuruManager.setServo(0.0, 1800)
+                                QGroundControl.tsuruManager.setServo(0, 1.0)
                             }
                             onReleased: {
-                                QGroundControl.tsuruManager.setServo(0.0, 1500)
+                                QGroundControl.tsuruManager.setServo(0, 0.0)
                             }
                         }
                         RoundButton {
@@ -375,10 +376,10 @@ Item {
                             lightBorders:   _lightWidgetBorders
                             pressable:      true
                             onPressed: {
-                                QGroundControl.tsuruManager.setServo(8.0, 1200)
+                                QGroundControl.tsuruManager.setServo(2, -1.0)
                             }
                             onReleased: {
-                                QGroundControl.tsuruManager.setServo(8.0, 1500)
+                                QGroundControl.tsuruManager.setServo(2, 0.0)
                             }
                         }
 
@@ -387,10 +388,10 @@ Item {
                             lightBorders:   _lightWidgetBorders
                             pressable:      true
                             onPressed: {
-                                QGroundControl.tsuruManager.setServo(4.0, 1800)
+                                QGroundControl.tsuruManager.setServo(1, -1.0)
                             }
                             onReleased: {
-                                QGroundControl.tsuruManager.setServo(4.0, 1500)
+                                QGroundControl.tsuruManager.setServo(1, 0.0)
                             }
                         }
                         RoundButton {
@@ -398,10 +399,10 @@ Item {
                             lightBorders:   _lightWidgetBorders
                             pressable:      true
                             onPressed: {
-                                QGroundControl.tsuruManager.setServo(8.0, 1800)
+                                QGroundControl.tsuruManager.setServo(2, 1.0)
                             }
                             onReleased: {
-                                QGroundControl.tsuruManager.setServo(8.0, 1500)
+                                QGroundControl.tsuruManager.setServo(2, 0.0)
                             }
                         }
                     }
@@ -410,7 +411,7 @@ Item {
                         text:           qsTr("Change video chanel")
                         width:          parent.width
                         onClicked:      {
-                            QGroundControl.tsuruManager.setServo(0.0, 1200)
+                            QGroundControl.tsuruManager.setServo(3, 1)
                         }
                     }
                 }

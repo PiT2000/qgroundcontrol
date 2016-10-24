@@ -31,7 +31,7 @@ public:
     Q_INVOKABLE void abortMission();
     Q_INVOKABLE void goToLand();
     Q_INVOKABLE void screenShot();
-    Q_INVOKABLE void setServo(float servo, float pwm);
+    Q_INVOKABLE void setServo(int chanel, float aux);
 
     bool isEditor(void) { return _isEditor; }
 
