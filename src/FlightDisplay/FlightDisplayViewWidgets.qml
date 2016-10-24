@@ -154,15 +154,15 @@ Item {
         maxHeight:                  virtualJoystickMultiTouch.visible ? virtualJoystickMultiTouch.y - y : parent.height - anchors.margins - y
     }
 
-    QGCLabel {
-        id:         flyLabel
-        text:       qsTr("Fly")
-        color:      mapPal.text
-        visible:    !ScreenTools.isShortScreen
-        anchors.topMargin:          _toolButtonTopMargin
-        anchors.horizontalCenter:   toolColumn.horizontalCenter
-        anchors.top:                parent.top
-    }
+//    QGCLabel {
+//        id:         flyLabel
+//        text:       qsTr("Fly")
+//        color:      mapPal.text
+//        visible:    !ScreenTools.isShortScreen
+//        anchors.topMargin:          _toolButtonTopMargin
+//        anchors.horizontalCenter:   toolColumn.horizontalCenter
+//        anchors.top:                parent.top
+//    }
 
     //-- Vertical Tool Buttons
     Column {
@@ -170,10 +170,9 @@ Item {
         anchors.topMargin:  ScreenTools.isShortScreen ? _toolButtonTopMargin : ScreenTools.defaultFontPixelHeight / 2
         anchors.leftMargin: ScreenTools.defaultFontPixelHeight
         anchors.left:       parent.left
-        anchors.top:        ScreenTools.isShortScreen ? parent.top : flyLabel.bottom
+        anchors.top:        parent.top
         anchors.bottom:     parent.bottom
         spacing:            ScreenTools.defaultFontPixelHeight
-//        visible:            _mainIsMap
         //-- Mission Selector Control
         DropButton {
             id:                 missionSelectorButton
