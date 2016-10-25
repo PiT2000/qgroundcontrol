@@ -65,7 +65,12 @@ Item {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: _valuesWidget.showPicker()
+        onClicked: {
+            if(QGroundControl.tsuruManager.isEditor)
+            {
+                _valuesWidget.showPicker()
+            }
+        }
     }
 
     Column {
@@ -97,6 +102,7 @@ Item {
                 width:              attitudeWidget.width * 0.15
                 sourceSize.width:   width
                 fillMode:           Image.PreserveAspectFit
+                visible:            QGroundControl.tsuruManager.isEditor
                 MouseArea {
                     anchors.fill:   parent
                     hoverEnabled:   true
