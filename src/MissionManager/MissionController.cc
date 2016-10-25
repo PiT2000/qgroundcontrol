@@ -19,6 +19,7 @@
 #include "JsonHelper.h"
 #include "ParameterLoader.h"
 #include "QGroundControlQmlGlobal.h"
+#include "TsuruManager.h"
 
 #ifndef __mobile__
 #include "QGCFileDialog.h"
@@ -471,7 +472,11 @@ void MissionController::loadFromFile(const QString& filename)
 void MissionController::loadFromFilePicker(void)
 {
 #ifndef __mobile__
-    QString filename = QGCFileDialog::getOpenFileName(NULL, "Select Mission File to load", QString(), "Mission file (*.mission);;All Files (*.*)");
+//    QString filename = QGCFileDialog::getOpenFileName(NULL, "Select Mission File to load", QString(), "Mission file (*.mission);;All Files (*.*)");
+    QString filename = QGCFileDialog::getOpenFileName(NULL,
+                                                      "Select Mission File to load",
+                                                      qgcApp()->toolbox()->tsuruManager()->missionPath(),
+                                                      "Mission file (*.mission);;All Files (*.*)");
 
     if (filename.isEmpty()) {
         return;
@@ -555,7 +560,11 @@ void MissionController::saveToFile(const QString& filename)
 void MissionController::saveToFilePicker(void)
 {
 #ifndef __mobile__
-    QString filename = QGCFileDialog::getSaveFileName(NULL, "Select file to save mission to", QString(), "Mission file (*.mission);;All Files (*.*)");
+//    QString filename = QGCFileDialog::getSaveFileName(NULL, "Select file to save mission to", QString(), "Mission file (*.mission);;All Files (*.*)");
+    QString filename = QGCFileDialog::getSaveFileName(NULL,
+                                                      "Select file to save mission to",
+                                                      qgcApp()->toolbox()->tsuruManager()->missionPath(),
+                                                      "Mission file (*.mission);;All Files (*.*)");
 
     if (filename.isEmpty()) {
         return;
