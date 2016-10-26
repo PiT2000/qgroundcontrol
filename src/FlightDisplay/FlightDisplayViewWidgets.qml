@@ -312,6 +312,12 @@ Item {
                 Column {
                     spacing: ScreenTools.defaultFontPixelWidth
                     anchors.margins: ScreenTools.defaultFontPixelWidth
+/*
+  AUX1 - chanel (-1:0:1)
+  AUX2 - up down
+  AUX3 - zoom
+  AUX4 - left right
+*/
                     QGCLabel {
                         id:             title
                         text:           qsTr("Camera control")
@@ -331,10 +337,10 @@ Item {
                             lightBorders:   _lightWidgetBorders
                             pressable:      true
                             onPressed: {
-                                QGroundControl.tsuruManager.setServo(0, -1.0)
+                                QGroundControl.tsuruManager.setServo(2, -1.0)
                             }
                             onReleased: {
-                                QGroundControl.tsuruManager.setServo(0, 0.0)
+                                QGroundControl.tsuruManager.setServo(2, 0.0)
                             }
                         }
                         RoundButton {
@@ -353,10 +359,10 @@ Item {
                             lightBorders:   _lightWidgetBorders
                             pressable:      true
                             onPressed: {
-                                QGroundControl.tsuruManager.setServo(0, 1.0)
+                                QGroundControl.tsuruManager.setServo(2, 1.0)
                             }
                             onReleased: {
-                                QGroundControl.tsuruManager.setServo(0, 0.0)
+                                QGroundControl.tsuruManager.setServo(2, 0.0)
                             }
                         }
                         RoundButton {
@@ -364,10 +370,10 @@ Item {
                             lightBorders:   _lightWidgetBorders
                             pressable:      true
                             onPressed: {
-                                QGroundControl.tsuruManager.setServo(2, -1.0)
+                                QGroundControl.tsuruManager.setServo(3, -1.0)
                             }
                             onReleased: {
-                                QGroundControl.tsuruManager.setServo(2, 0.0)
+                                QGroundControl.tsuruManager.setServo(3, 0.0)
                             }
                         }
 
@@ -387,10 +393,10 @@ Item {
                             lightBorders:   _lightWidgetBorders
                             pressable:      true
                             onPressed: {
-                                QGroundControl.tsuruManager.setServo(2, 1.0)
+                                QGroundControl.tsuruManager.setServo(3, 1.0)
                             }
                             onReleased: {
-                                QGroundControl.tsuruManager.setServo(2, 0.0)
+                                QGroundControl.tsuruManager.setServo(3, 0.0)
                             }
                         }
                     }
@@ -398,8 +404,14 @@ Item {
                         id:             chanel
                         text:           qsTr("Change video chanel")
                         width:          parent.width
-                        onClicked:      {
-                            QGroundControl.tsuruManager.setServo(3, 1)
+                        property int chanelNum: -1
+                        onClicked: {
+                            chanelNum = chanelNum+1
+                            if (chanelNum == 1)
+                            {
+                                chanelNum = -1
+                            }
+                            QGroundControl.tsuruManager.setServo(0, chanelNum)
                         }
                     }
                 }
@@ -696,8 +708,10 @@ Item {
                 guidedModeConfirm.confirmText = qsTr("enter orbit mode")
                 break;
             }
-            _guidedModeBar.visible = false
-            guidedModeConfirm.visible = true
+            if(QGroundControl.tsuruManager.isEditor) {
+                _guidedModeBar.visible = false
+                guidedModeConfirm.visible = true
+            }
         }
 
         Column {
@@ -769,7 +783,11 @@ Item {
     MouseArea {
         anchors.fill:   parent
         enabled:        guidedModeConfirm.visible
-        onClicked:      _guidedModeBar.rejectGuidedModeConfirm()
+        onClicked: {
+            if(QGroundControl.tsuruManager.isEditor) {
+                _guidedModeBar.rejectGuidedModeConfirm()
+            }
+        }
     }
 
     // Action confirmation control
