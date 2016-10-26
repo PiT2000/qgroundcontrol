@@ -26,11 +26,6 @@ public:
     Q_PROPERTY(QString      missionPath READ missionPath    WRITE setMissionPath    NOTIFY missionPathChanged)
     Q_PROPERTY(TsuruState   state       READ state          WRITE setState          NOTIFY stateChanged)
 
-    Q_INVOKABLE void startMission();
-    Q_INVOKABLE void pauseMission();
-    Q_INVOKABLE void abortMission();
-    Q_INVOKABLE void goToLand();
-    Q_INVOKABLE void screenShot();
     Q_INVOKABLE void setServo(int chanel, float aux);
 
     bool isEditor(void) { return _isEditor; }
