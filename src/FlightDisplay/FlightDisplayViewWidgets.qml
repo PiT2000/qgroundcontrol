@@ -112,7 +112,7 @@ Item {
         anchors.margins:        ScreenTools.defaultFontPixelHeight / 2
         anchors.right:          altitudeSlider.visible ? altitudeSlider.left : parent.right
         anchors.verticalCenter: parent.verticalCenter
-        visible:                !_useAlternateInstruments
+        visible:                !_useAlternateInstruments && QGroundControl.tsuruManager.isEditor
         size:                   getGadgetWidth()
         active:                 _activeVehicle != null
         heading:                _heading
@@ -131,7 +131,7 @@ Item {
         anchors.margins:        ScreenTools.defaultFontPixelHeight / 2
         anchors.top:            parent.top
         anchors.right:          altitudeSlider.visible ? altitudeSlider.left : parent.right
-        visible:                _useAlternateInstruments
+        visible:                _useAlternateInstruments && QGroundControl.tsuruManager.isEditor
         width:                  ScreenTools.isTinyScreen ? getGadgetWidth() * 1.5 : getGadgetWidth()
         active:                 _activeVehicle != null
         heading:                _heading
