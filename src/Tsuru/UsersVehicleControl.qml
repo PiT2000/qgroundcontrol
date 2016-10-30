@@ -98,13 +98,15 @@ Row {
         }
 
         Rectangle {
-            id:             missionSelector
-            color:          qgcPal.window
-            visible:        false
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top:    parent.bottom
-            width:          parent.width
-            height:         view.height * 1.05
+            id:                 missionSelector
+            color:              Qt.rgba(0,0,0,0.75)
+            visible:            false
+            anchors.left:       parent.left
+            anchors.right:      parent.right
+            anchors.top:        parent.bottom
+            anchors.topMargin:  15
+            width:              parent.width
+            height:             view.height * 1.05
             ListView {
                 id:             view
                 clip:           true
@@ -112,7 +114,9 @@ Row {
                 model:          missionListModel
                 width:          parent.width * 0.95
                 height:         ScreenTools.defaultFontPixelHeight * 10
-                delegate: QGCButton {
+                anchors.topMargin: 5
+                anchors.leftMargin: 5
+                delegate:QGCButton {
                     width:      parent.width
                     height:     ScreenTools.defaultFontPixelHeight * 1.5
                     text:       model.fileBaseName
