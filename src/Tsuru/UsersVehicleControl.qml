@@ -3,6 +3,7 @@ import QtQuick.Controls         1.2
 import QtGraphicalEffects       1.0
 import QtQuick.Controls.Styles  1.2
 import QtQuick.Dialogs          1.1
+import Qt.labs.folderlistmodel  2.1
 
 import QGroundControl               1.0
 import QGroundControl.Controls      1.0
@@ -12,7 +13,79 @@ import QGroundControl.Palette       1.0
 Row {
     spacing:  tbSpacing * 2
     QGCPalette { id: qgcPal }
+    FolderListModel {
+        id:             missionListModel
+        showDirs:       false
+        nameFilters:    "*.mission"
+        folder:         "file:"+QGroundControl.tsuruManager.missionPath
+    }
+    //Mission Selector
+    Item {
+        width: mainWindow.tbCellHeight + missionSelectorLabel.width
+        height: mainWindow.tbCellHeight
+        Row {
+            QGCColoredImage {
+                id:             missionSelectorIcon
+                source:         "/qmlimages/MapSync.svg"
+                fillMode:       Image.PreserveAspectFit
+                width:          mainWindow.tbCellHeight
+                height:         mainWindow.tbCellHeight
+                sourceSize.height: height
+                color:          "#00FF00"
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            QGCLabel {
+                id:             missionSelectorLabel
+                text:           qsTr("Select mission")
+                font.pointSize: ScreenTools.mediumFontPointSize
+                color:          "#00FF00"
+                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                if(missionSelector.visible == false) {
+                    missionSelectorIcon.color = "#FF0000"
+                    missionSelectorLabel.color = "#FF0000"
+                    missionSelector.visible = true
+                }
+                else {
+                    missionSelectorIcon.color = "#00FF00"
+                    missionSelectorLabel.color = "#00FF00"
+                    missionSelector.visible = false
+                }
+            }
+        }
 
+        Rectangle {
+            id:             missionSelector
+            color:          qgcPal.window
+            visible:        false
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top:    parent.bottom
+            width:          parent.width
+            height:         view.height * 1.05
+            ListView {
+                id:             view
+                clip:           true
+                spacing:        ScreenTools.defaultFontPixelHeight / 2
+                model:          missionListModel
+                width:          parent.width * 0.95
+                height:         ScreenTools.defaultFontPixelHeight * 10
+                delegate: QGCButton {
+                    width:      parent.width
+                    height:     ScreenTools.defaultFontPixelHeight * 1.5
+                    text:       model.fileBaseName
+                    onClicked:  {
+                        loadPreMission(model.filePath)
+                    }
+                }
+            }
+        }
+    }
+
+    //Control panel
     Item {
         id:     start
         width:  mainWindow.tbCellHeight
@@ -101,4 +174,4 @@ Row {
             }
         }
     }
-}
+}//End Row
