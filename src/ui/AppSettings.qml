@@ -135,8 +135,8 @@ Rectangle {
                 text:           qsTr("Weather Station")
                 exclusiveGroup: panelActionGroup
                 onClicked: {
-                    if(__rightPanel.source != "WeatherStationSettings.qml") {
-                        __rightPanel.source = "WeatherStationSettings.qml"
+                    if(__rightPanel.source != "QGroundControl/Controls/WeatherStationSettings.qml") {
+                        __rightPanel.source = "QGroundControl/Controls/WeatherStationSettings.qml"
                     }
                     checked = true
                 }
