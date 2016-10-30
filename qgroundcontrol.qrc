@@ -164,8 +164,8 @@
         <file alias="VehicleSummary.qml">src/VehicleSetup/VehicleSummary.qml</file>
         <file alias="QGroundControl/Controls/OfflineMapButton.qml">src/QmlControls/OfflineMapButton.qml</file>
         <file alias="PX4TuningComponentVTOL.qml">src/AutoPilotPlugins/PX4/PX4TuningComponentVTOL.qml</file>
-        <file alias="WeatherStation.qml">src/WeatherStation/WeatherStation.qml</file>
-        <file alias="WeatherStationSettings.qml">src/WeatherStation/WeatherStationSettings.qml</file>
+        <file alias="QGroundControl/Controls/WeatherStation.qml">src/WeatherStation/WeatherStation.qml</file>
+        <file alias="QGroundControl/Controls/WeatherStationSettings.qml">src/WeatherStation/WeatherStationSettings.qml</file>
         <file alias="QGroundControl/Controls/UsersVehicleControl.qml">src/Tsuru/UsersVehicleControl.qml</file>
     </qresource>
     <qresource prefix="/json">
