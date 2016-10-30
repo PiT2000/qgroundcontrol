@@ -173,6 +173,7 @@ Item {
         anchors.top:        parent.top
         anchors.bottom:     parent.bottom
         spacing:            ScreenTools.defaultFontPixelHeight
+        visible:            QGroundControl.tsuruManager.isEditor
         //-- Mission Selector Control
         DropButton {
             id:                 missionSelectorButton
