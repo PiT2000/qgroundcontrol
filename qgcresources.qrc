@@ -155,6 +155,9 @@
         <file alias="ArrowToRight.svg">src/Tsuru/Images/ArrowToRight.svg</file>
         <file alias="ArrowToUp.svg">src/Tsuru/Images/ArrowToUp.svg</file>
         <file alias="Weather.svg">src/WeatherStation/images/Weather_Icon.svg</file>
+        <file alias="Precipitation.svg">src/WeatherStation/images/Precipitation.svg</file>
+        <file alias="Temperature.svg">src/WeatherStation/images/Temperature.svg</file>
+        <file alias="Wind.svg">src/WeatherStation/images/Wind.svg</file>
     </qresource>
     <qresource prefix="/res">
         <file alias="AntennaRC">resources/Antenna_RC.svg</file>
