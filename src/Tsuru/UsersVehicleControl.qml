@@ -3,6 +3,7 @@ import QtQuick.Controls         1.2
 import QtGraphicalEffects       1.0
 import QtQuick.Controls.Styles  1.2
 import QtQuick.Dialogs          1.1
+import QtQuick.Layouts 1.1
 import Qt.labs.folderlistmodel  2.1
 
 import QGroundControl               1.0
@@ -22,6 +23,34 @@ Row {
 
     property var _activeVehicle: QGroundControl.multiVehicleManager.activeVehicle
 
+    //View speed and alt
+    Item {
+        width: val.width
+
+        height: mainWindow.tbCellHeight
+        GridLayout {
+            id: val
+            columns: 2
+//            spacing: tbSpacing * 2
+            QGCLabel {
+                text: qsTr("Speed")
+                Layout.alignment:  Qt.AlignVCenter | Qt.AlignHCenter
+            }
+            QGCLabel {
+                text: qsTr("Alt")
+                Layout.alignment:  Qt.AlignVCenter | Qt.AlignHCenter
+            }
+            QGCLabel {
+                text: _activeVehicle ? _activeVehicle.groundSpeed.valueString : 0.00
+                Layout.alignment:  Qt.AlignVCenter | Qt.AlignHCenter
+            }
+            QGCLabel {
+                text: _activeVehicle ? _activeVehicle.altitudeRelative.valueString : 0.00
+                Layout.alignment:  Qt.AlignVCenter | Qt.AlignHCenter
+            }
+        }
+    }
+
     //Mission Selector
     Item {
         width: mainWindow.tbCellHeight + missionSelectorLabel.width
@@ -30,6 +59,7 @@ Row {
                     !ScreenTools.isTinyScreen
                     && _activeVehicle
                     && !_activeVehicle.armed
+                    && _activeVehicle.homePositionAvailable
                     && _activeVehicle.flightMode != "Land"
         }
         Row {
@@ -40,14 +70,14 @@ Row {
                 width:          mainWindow.tbCellHeight
                 height:         mainWindow.tbCellHeight
                 sourceSize.height: height
-                color:          "#00FF00"
+                color:          qgcPal.buttonText
                 anchors.verticalCenter: parent.verticalCenter
             }
             QGCLabel {
                 id:             missionSelectorLabel
                 text:           qsTr("Select mission")
                 font.pointSize: ScreenTools.mediumFontPointSize
-                color:          "#00FF00"
+                color:          qgcPal.buttonText
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
@@ -55,13 +85,13 @@ Row {
             anchors.fill: parent
             onClicked: {
                 if(missionSelector.visible == false) {
-                    missionSelectorIcon.color = "#FF0000"
-                    missionSelectorLabel.color = "#FF0000"
+                    missionSelectorIcon.color = qgcPal.buttonHighlight
+                    missionSelectorLabel.color = qgcPal.buttonHighlight
                     missionSelector.visible = true
                 }
                 else {
-                    missionSelectorIcon.color = "#00FF00"
-                    missionSelectorLabel.color = "#00FF00"
+                    missionSelectorIcon.color = qgcPal.buttonText
+                    missionSelectorLabel.color = qgcPal.buttonText
                     missionSelector.visible = false
                 }
             }
@@ -120,7 +150,8 @@ Row {
         MouseArea {
             anchors.fill:   parent
             onClicked: {
-                startIcon.color = "#FF0000"
+                _activeVehicle.flightMode = "Mission"
+                _activeVehicle.armed = true
             }
         }
     }
@@ -150,7 +181,13 @@ Row {
         MouseArea {
             anchors.fill:   parent
             onClicked: {
-                pauseIcon.color = "#00FF00"
+                if (_activeVehicle.flightMode == "Mission") {
+                    _activeVehicle.flightMode = "Hold"
+                    pauseIcon.color = qgcPal.buttonHighlight
+                } else if (_activeVehicle.flightMode == "Hold") {
+                    _activeVehicle.flightMode = "Mission"
+                    pauseIcon.color = qgcPal.buttonText
+                }
             }
         }
     }
@@ -180,7 +217,7 @@ Row {
         MouseArea {
             anchors.fill:   parent
             onClicked: {
-                stopIcon.color = "#FF0000"
+                _activeVehicle.flightMode = "Return"
             }
         }
     }
@@ -209,7 +246,7 @@ Row {
         MouseArea {
             anchors.fill:   parent
             onClicked: {
-                landIcon.color = "#FF0000"
+                activeVehicle.flightMode = "Land"
             }
         }
     }
