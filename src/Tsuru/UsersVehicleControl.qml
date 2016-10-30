@@ -19,10 +19,19 @@ Row {
         nameFilters:    "*.mission"
         folder:         "file:"+QGroundControl.tsuruManager.missionPath
     }
+
+    property var _activeVehicle: QGroundControl.multiVehicleManager.activeVehicle
+
     //Mission Selector
     Item {
         width: mainWindow.tbCellHeight + missionSelectorLabel.width
         height: mainWindow.tbCellHeight
+        visible: {
+                    !ScreenTools.isTinyScreen
+                    && _activeVehicle
+                    && !_activeVehicle.armed
+                    && _activeVehicle.flightMode != "Land"
+        }
         Row {
             QGCColoredImage {
                 id:             missionSelectorIcon
@@ -90,7 +99,14 @@ Row {
         id:     start
         width:  mainWindow.tbCellHeight
         height: mainWindow.tbCellHeight
-
+        visible: {
+                    !ScreenTools.isTinyScreen
+                    && _activeVehicle
+                    && !_activeVehicle.armed
+                    && _activeVehicle.homePositionAvailable
+//                        && _activeVehicle.flightMode != "Return"
+                    && _activeVehicle.flightMode != "Land"
+        }
         QGCColoredImage {
             id:             startIcon
             source:         "/res/Play"
@@ -108,10 +124,18 @@ Row {
             }
         }
     }
+
     Item {
         id:     pause
         width:  mainWindow.tbCellHeight
         height: mainWindow.tbCellHeight
+        visible: {
+                    !ScreenTools.isTinyScreen
+                    && _activeVehicle
+                    && _activeVehicle.armed
+                    && _activeVehicle.flightMode != "Return"
+                    && _activeVehicle.flightMode != "Land"
+        }
 
         QGCColoredImage {
             id:             pauseIcon
@@ -130,10 +154,18 @@ Row {
             }
         }
     }
+
     Item {
         id:     stop
         width:  mainWindow.tbCellHeight
         height: mainWindow.tbCellHeight
+        visible: {
+                    !ScreenTools.isTinyScreen
+                    && _activeVehicle
+                    && _activeVehicle.armed
+                    && _activeVehicle.flightMode != "Return"
+                    && _activeVehicle.flightMode != "Land"
+        }
 
         QGCColoredImage {
             id:             stopIcon
@@ -152,10 +184,17 @@ Row {
             }
         }
     }
+
     Item {
         id:     land
         width:  mainWindow.tbCellHeight
         height: mainWindow.tbCellHeight
+        visible: {
+                    !ScreenTools.isTinyScreen
+                    && _activeVehicle
+                    && _activeVehicle.armed
+                    && _activeVehicle.flightMode != "Land"
+        }
 
         QGCColoredImage {
             id:             landIcon
