@@ -387,6 +387,12 @@ Rectangle {
         }
 
         Loader {
+            source: "WeatherStation.qml"
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+        }
+
+        Loader {
             source:                 activeVehicle && !parent.vehicleConnectionLost ? "MainToolBarIndicators.qml" : ""
             anchors.verticalCenter: parent.verticalCenter
             onLoaded: {
