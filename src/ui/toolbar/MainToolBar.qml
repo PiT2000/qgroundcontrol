@@ -381,6 +381,12 @@ Rectangle {
         property bool vehicleConnectionLost: activeVehicle ? activeVehicle.connectionLost : false
 
         Loader {
+            source: "UsersVehicleControl.qml"
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+        }
+
+        Loader {
             source:                 activeVehicle && !parent.vehicleConnectionLost ? "MainToolBarIndicators.qml" : ""
             anchors.verticalCenter: parent.verticalCenter
             onLoaded: {
