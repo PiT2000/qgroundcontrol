@@ -381,7 +381,7 @@ Rectangle {
         property bool vehicleConnectionLost: activeVehicle ? activeVehicle.connectionLost : false
 
         Loader {
-            source: "UsersVehicleControl.qml"
+            source: QGroundControl.tsuruManager.isEditor ? "" : "UsersVehicleControl.qml"
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
         }
