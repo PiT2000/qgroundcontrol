@@ -14,6 +14,23 @@ import QGroundControl.FlightMap     1.0
 Item {
     QGCPalette { id: qgcPal }
     property var _activeVehicle: QGroundControl.multiVehicleManager.activeVehicle
+    property var _message:        QGroundControl.tsuruManager.userMessage
+    Timer {
+        interval: 500
+        running: true
+        repeat: true
+        onTriggered: {
+            if(_activeVehicle) {
+                if(_activeVehicle.armed) {
+                    _message = _activeVehicle.flightMode
+                }
+                else {
+                    _message = _activeVehicle.flightMode
+                }
+            }
+        }
+
+    }
     //Separator
     Rectangle {
         id: sep1
@@ -26,7 +43,7 @@ Item {
     Item {
         anchors.fill: parent
         QGCLabel {
-            text: qsTr("test message")
+            text: _message
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             visible: !ScreenTools.isTinyScreen && _activeVehicle

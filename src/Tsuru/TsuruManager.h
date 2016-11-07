@@ -16,6 +16,7 @@ public:
     Q_PROPERTY( bool isEditor READ isEditor CONSTANT    )
     //
     Q_PROPERTY( QString missionPath READ missionPath    WRITE setMissionPath    NOTIFY missionPathChanged   )
+    Q_PROPERTY( QString userMessage READ userMessage    WRITE setUserMessage    NOTIFY userMessageChanged)
     //Camera controll
     Q_PROPERTY( float cameraPitch   READ cameraPitch    WRITE setCameraPitch    NOTIFY cameraPitchChanged   )
     Q_PROPERTY( float cameraYaw     READ cameraYaw      WRITE setCameraYaw      NOTIFY cameraYawChanged     )
@@ -28,6 +29,7 @@ public:
     bool isEditor(void) { return _isEditor; }
 
     QString missionPath (void) { return _missionPath;   }
+    QString userMessage (void) { return _userMessage;   }
     float cameraPitch   (void) { return _cameraPitch;   }
     float cameraYaw     (void) { return _cameraYaw;     }
     float cameraZoom    (void) { return _cameraZoom;    }
@@ -37,6 +39,7 @@ public:
     void setToolbox(QGCToolbox *toolbox);
 public slots:
     void setMissionPath (QString value);
+    void setUserMessage (QString value) { _userMessage = value; emit userMessageChanged(_userMessage); }
     void setCameraPitch (float value);
     void setCameraYaw   (float value);
     void setCameraZoom  (float value);
@@ -45,6 +48,7 @@ public slots:
 private:
     bool _isEditor;
     QString _missionPath;
+    QString _userMessage;
     QGCToolbox* _toolbox;
     float *_cameraState[8];
     float _cameraPitch;
@@ -53,6 +57,7 @@ private:
     float _cameraChanel;
 signals:
     void missionPathChanged (QString value);
+    void userMessageChanged (QString value);
     void cameraPitchChanged (float value);
     void cameraYawChanged   (float value);
     void cameraZoomChanged  (float value);
