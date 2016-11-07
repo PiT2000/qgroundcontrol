@@ -21,19 +21,17 @@ Item {
         width: 2
         color: qgcPal.buttonText
         anchors.left: parent.left
-        visible: {
-            !ScreenTools.isTinyScreen
-                    && _activeVehicle
+        visible: !ScreenTools.isTinyScreen && _activeVehicle
+    }
+    Item {
+        anchors.fill: parent
+        QGCLabel {
+            text: qsTr("test message")
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            visible: !ScreenTools.isTinyScreen && _activeVehicle
         }
     }
-    QGCLabel {
-        text: qsTr("test message")
-        visible: {
-                  !ScreenTools.isTinyScreen
-                          && _activeVehicle
-              }
-    }
-
     //Separator
     Rectangle {
         id: sep2
@@ -41,9 +39,6 @@ Item {
         width: 2
         color: qgcPal.buttonText
         anchors.right: parent.right
-        visible: {
-            !ScreenTools.isTinyScreen
-                    && _activeVehicle
-        }
+        visible: !ScreenTools.isTinyScreen && _activeVehicle
     }
 }
