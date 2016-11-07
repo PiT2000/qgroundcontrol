@@ -19,6 +19,7 @@ TsuruManager::TsuruManager(QGCApplication* app)
     QSettings settings;
     settings.beginGroup("TSURU");
     _missionPath = settings.value("MissionPath", QDir::homePath()+"/missions/" ).toString();
+    _cameraChanel = -1.00;
 }
 
 TsuruManager::~TsuruManager()
@@ -29,7 +30,12 @@ TsuruManager::~TsuruManager()
 void TsuruManager::setServo(int chanel, float aux)
 {
     Vehicle *_activeVehicle = _toolbox->multiVehicleManager()->activeVehicle();
+    if(chanel == 0)
+    {
+        _cameraChanel = aux;
+    }
     if(!_activeVehicle) return;
+
     mavlink_set_actuator_control_target_t packet = {
         93372036854775807ULL,
         {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0},
@@ -37,6 +43,7 @@ void TsuruManager::setServo(int chanel, float aux)
         _activeVehicle->id(),
         _activeVehicle->defaultComponentId()
     };
+    packet.controls[0] = _cameraChanel;
     packet.controls[chanel] = (float)aux;
     mavlink_message_t msg;
     mavlink_msg_set_actuator_control_target_encode(_toolbox->mavlinkProtocol()->getSystemId(),
