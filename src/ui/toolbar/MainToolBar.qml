@@ -388,6 +388,7 @@ Rectangle {
         }
 
         Loader {
+            id:                     mainIndicators
             source:                 activeVehicle && !parent.vehicleConnectionLost ? "MainToolBarIndicators.qml" : ""
             anchors.verticalCenter: parent.verticalCenter
             onLoaded: {
@@ -396,11 +397,21 @@ Rectangle {
                 }
                 else {
                     anchors.left = userControlPanel.right
-                    anchors.leftMargin = 25
+                    anchors.leftMargin = 20
                 }
             }
         }
         Loader {
+            source: QGroundControl.tsuruManager.isEditor ? "" : "UsersMessageBox.qml"
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: mainIndicators.right
+            anchors.right: weatherStation.left
+            anchors.leftMargin: 20
+            anchors.rightMargin: 20
+            height: mainIndicators.height
+        }
+        Loader {
+            id: weatherStation
             source: "WeatherStation.qml"
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
