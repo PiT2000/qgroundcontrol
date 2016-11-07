@@ -10,6 +10,7 @@ import QGroundControl               1.0
 import QGroundControl.Controls      1.0
 import QGroundControl.ScreenTools   1.0
 import QGroundControl.Palette       1.0
+import QGroundControl.FlightMap     1.0
 
 Row {
     spacing:  tbSpacing * 2
@@ -23,44 +24,133 @@ Row {
 
     property var _activeVehicle: QGroundControl.multiVehicleManager.activeVehicle
 
-    //View speed and alt
+    //Indicator button
     Item {
-        width: val.width
-
+        id:     indicator
+        width:  mainWindow.tbCellHeight
         height: mainWindow.tbCellHeight
-        GridLayout {
-            id: val
-            columns: 2
-//            spacing: tbSpacing * 2
-            QGCLabel {
-                text: qsTr("Speed")
-                Layout.alignment:  Qt.AlignVCenter | Qt.AlignHCenter
+        visible: !ScreenTools.isTinyScreen && _activeVehicle
+        QGCColoredImage {
+            id:             indicatorIcon
+            source:         "/qmlimages/Hamburger.svg"
+            fillMode:       Image.PreserveAspectFit
+            width:          mainWindow.tbCellHeight
+            height:         mainWindow.tbCellHeight
+            sourceSize.height: height
+            color:          qgcPal.buttonText
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                if(indicatorPopup.visible == false) {
+                    indicatorIcon.color = qgcPal.buttonHighlight
+                    indicatorPopup.visible = true
+                }
+                else {
+                    indicatorIcon.color = qgcPal.buttonText
+                    indicatorPopup.visible = false
+                }
             }
-            QGCLabel {
-                text: qsTr("Alt")
-                Layout.alignment:  Qt.AlignVCenter | Qt.AlignHCenter
-            }
-            QGCLabel {
-                text: _activeVehicle ? _activeVehicle.groundSpeed.valueString : 0.00
-                Layout.alignment:  Qt.AlignVCenter | Qt.AlignHCenter
-            }
-            QGCLabel {
-                text: _activeVehicle ? _activeVehicle.altitudeRelative.valueString : 0.00
-                Layout.alignment:  Qt.AlignVCenter | Qt.AlignHCenter
+        }
+        Rectangle {
+            id:                 indicatorPopup
+            color:              Qt.rgba(0,0,0,0.75)
+            visible:            false
+            anchors.left:       parent.left
+            anchors.top:        parent.bottom
+            anchors.leftMargin: -10
+            anchors.topMargin:  cameraPopup.visible == false ? 15 : cameraPopup.height + 25
+            width:              200
+            height:             _valuesWidget.height+10
+            Item {
+                anchors.fill: parent
+                anchors.leftMargin: 5
+                anchors.rightMargin: 5
+                anchors.topMargin: 5
+                anchors.bottomMargin: 5
+                InstrumentSwipeView {
+                    id:                 _valuesWidget
+                    width:              parent.width
+                    textColor:          qgcPal.text
+                    backgroundColor:    Qt.rgba(0,0,0,0.75)
+                    maxHeight:          300
+                }
             }
         }
     }
-
+    //Camera button
+    Item {
+        id:     camera
+        width:  mainWindow.tbCellHeight
+        height: mainWindow.tbCellHeight
+        visible: !ScreenTools.isTinyScreen && _activeVehicle
+        QGCColoredImage {
+            id:             cameraIcon
+            source:         "/qmlimages/CameraComponentIcon.png"
+            fillMode:       Image.PreserveAspectFit
+            width:          mainWindow.tbCellHeight
+            height:         mainWindow.tbCellHeight
+            sourceSize.height: height
+            color:          qgcPal.buttonText
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                if(cameraPopup.visible == false) {
+                    cameraIcon.color = qgcPal.buttonHighlight
+                    cameraPopup.visible = true
+                }
+                else {
+                    cameraIcon.color = qgcPal.buttonText
+                    cameraPopup.visible = false
+                }
+            }
+        }
+        Rectangle {
+            id:                 cameraPopup
+            color:              Qt.rgba(0,0,0,0.75)
+            visible:            false
+            anchors.left:       parent.left
+            anchors.top:        parent.bottom
+            anchors.leftMargin: 4-mainWindow.tbCellHeight*2
+            anchors.topMargin:  15
+            width:              200
+            height:             cameraControls.height+10
+            Item {
+                anchors.fill: parent
+                anchors.leftMargin: 5
+                anchors.rightMargin: 5
+                anchors.topMargin: 5
+                anchors.bottomMargin: 5
+                CameraControls {
+                    id: cameraControls
+                    width: parent.width
+                }
+            }
+        }
+    }
+    //Separator
+    Rectangle {
+        height: parent.height
+        width: 2
+        color: qgcPal.buttonText
+        visible: {
+            !ScreenTools.isTinyScreen
+                    && _activeVehicle
+        }
+    }
     //Mission Selector
     Item {
         width: mainWindow.tbCellHeight + missionSelectorLabel.width
         height: mainWindow.tbCellHeight
         visible: {
-                    !ScreenTools.isTinyScreen
+            !ScreenTools.isTinyScreen
                     && _activeVehicle
-                    && !_activeVehicle.armed
-                    && _activeVehicle.homePositionAvailable
-                    && _activeVehicle.flightMode != "Land"
+            //                    && !_activeVehicle.armed
+            //                    && _activeVehicle.homePositionAvailable
+            //                    && _activeVehicle.flightMode != "Land"
         }
         Row {
             QGCColoredImage {
@@ -102,44 +192,64 @@ Row {
             color:              Qt.rgba(0,0,0,0.75)
             visible:            false
             anchors.left:       parent.left
-            anchors.right:      parent.right
             anchors.top:        parent.bottom
-            anchors.topMargin:  15
-            width:              parent.width
+            anchors.topMargin:  5
+            anchors.leftMargin: -20
+            width:              parent.width + 40
             height:             view.height * 1.05
-            ListView {
-                id:             view
-                clip:           true
-                spacing:        ScreenTools.defaultFontPixelHeight / 2
-                model:          missionListModel
-                width:          parent.width * 0.95
-                height:         ScreenTools.defaultFontPixelHeight * 10
-                anchors.topMargin: 5
+            Item {
+                anchors.fill: parent
                 anchors.leftMargin: 5
-                delegate:QGCButton {
-                    width:      parent.width
-                    height:     ScreenTools.defaultFontPixelHeight * 1.5
-                    text:       model.fileBaseName
-                    onClicked:  {
-                        loadPreMission(model.filePath)
+                anchors.rightMargin: 5
+                anchors.topMargin: 5
+                anchors.bottomMargin: 5
+                ListView {
+                    id:             view
+                    clip:           true
+                    spacing:        ScreenTools.defaultFontPixelHeight / 2
+                    model:          missionListModel
+                    width:          parent.width
+//                    height:         ScreenTools.defaultFontPixelHeight * 10
+                    height:         { missionListModel.count <= 10
+                                      ? ScreenTools.defaultFontPixelHeight * 1.5 * missionListModel.count
+                                      : ScreenTools.defaultFontPixelHeight * 1.5 * 12
+                                    }
+                    anchors.topMargin: 5
+                    anchors.leftMargin: 5
+                    delegate: QGCButton {
+                        width:      parent.width
+                        height:     ScreenTools.defaultFontPixelHeight * 1.5
+                        text:       model.fileBaseName
+                        onClicked:  {
+                            loadPreMission(model.filePath)
+                        }
                     }
                 }
             }
         }
     }
-
+    //Separator
+    Rectangle {
+        height: parent.height
+        width: 2
+        color: qgcPal.buttonText
+        visible: {
+            !ScreenTools.isTinyScreen
+                    && _activeVehicle
+        }
+    }
     //Control panel
+    //Start button
     Item {
         id:     start
         width:  mainWindow.tbCellHeight
         height: mainWindow.tbCellHeight
         visible: {
-                    !ScreenTools.isTinyScreen
+            !ScreenTools.isTinyScreen
                     && _activeVehicle
-                    && !_activeVehicle.armed
-                    && _activeVehicle.homePositionAvailable
-//                        && _activeVehicle.flightMode != "Return"
-                    && _activeVehicle.flightMode != "Land"
+            //                    && !_activeVehicle.armed
+            //                    && _activeVehicle.homePositionAvailable
+            //                    && _activeVehicle.flightMode != "Land"
         }
         QGCColoredImage {
             id:             startIcon
@@ -159,17 +269,17 @@ Row {
             }
         }
     }
-
+    //Pause button
     Item {
         id:     pause
         width:  mainWindow.tbCellHeight
         height: mainWindow.tbCellHeight
         visible: {
-                    !ScreenTools.isTinyScreen
+            !ScreenTools.isTinyScreen
                     && _activeVehicle
-                    && _activeVehicle.armed
-                    && _activeVehicle.flightMode != "Return"
-                    && _activeVehicle.flightMode != "Land"
+            //                    && _activeVehicle.armed
+            //                    && _activeVehicle.flightMode != "Return"
+            //                    && _activeVehicle.flightMode != "Land"
         }
 
         QGCColoredImage {
@@ -195,17 +305,17 @@ Row {
             }
         }
     }
-
+    //Stop button (Return to home)
     Item {
         id:     stop
         width:  mainWindow.tbCellHeight
         height: mainWindow.tbCellHeight
         visible: {
-                    !ScreenTools.isTinyScreen
+            !ScreenTools.isTinyScreen
                     && _activeVehicle
-                    && _activeVehicle.armed
-                    && _activeVehicle.flightMode != "Return"
-                    && _activeVehicle.flightMode != "Land"
+            //                    && _activeVehicle.armed
+            //                    && _activeVehicle.flightMode != "Return"
+            //                    && _activeVehicle.flightMode != "Land"
         }
 
         QGCColoredImage {
@@ -213,7 +323,7 @@ Row {
             source:         "/res/Stop"
             fillMode:       Image.PreserveAspectFit
             width:          mainWindow.tbCellHeight
-            height:         mainWindow.tbCellHeight
+            height:         mainWindow.tbCellHeight*2
             sourceSize.height: height
             color:          qgcPal.buttonText
             anchors.verticalCenter: parent.verticalCenter
@@ -225,16 +335,26 @@ Row {
             }
         }
     }
-
+    //Separator
+    Rectangle {
+        height: parent.height
+        width: 2
+        color: qgcPal.buttonText
+        visible: {
+            !ScreenTools.isTinyScreen
+                    && _activeVehicle
+        }
+    }
+    //Land button
     Item {
         id:     land
         width:  mainWindow.tbCellHeight
         height: mainWindow.tbCellHeight
         visible: {
-                    !ScreenTools.isTinyScreen
+            !ScreenTools.isTinyScreen
                     && _activeVehicle
-                    && _activeVehicle.armed
-                    && _activeVehicle.flightMode != "Land"
+            //                    && _activeVehicle.armed
+            //                    && _activeVehicle.flightMode != "Land"
         }
 
         QGCColoredImage {
@@ -252,6 +372,16 @@ Row {
             onClicked: {
                 activeVehicle.flightMode = "Land"
             }
+        }
+    }
+    //Separator
+    Rectangle {
+        height: parent.height
+        width: 2
+        color: qgcPal.buttonText
+        visible: {
+            !ScreenTools.isTinyScreen
+                    && _activeVehicle
         }
     }
 }//End Row
