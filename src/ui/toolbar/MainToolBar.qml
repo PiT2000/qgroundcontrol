@@ -381,15 +381,10 @@ Rectangle {
         property bool vehicleConnectionLost: activeVehicle ? activeVehicle.connectionLost : false
 
         Loader {
-            source: QGroundControl.tsuruManager.isEditor ? "" : "UsersVehicleControl.qml"
+            id:                     userControlPanel
+            source:                 QGroundControl.tsuruManager.isEditor ? "" : "UsersVehicleControl.qml"
             anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-        }
-
-        Loader {
-            source: "WeatherStation.qml"
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
+            anchors.left:           parent.left
         }
 
         Loader {
@@ -400,9 +395,15 @@ Rectangle {
                     anchors.left = parent.left
                 }
                 else {
-                    anchors.horizontalCenter = parent.horizontalCenter
+                    anchors.left = userControlPanel.right
+                    anchors.leftMargin = 25
                 }
             }
+        }
+        Loader {
+            source: "WeatherStation.qml"
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
         }
 
         QGCLabel {
