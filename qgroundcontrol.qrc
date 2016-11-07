@@ -167,6 +167,7 @@
         <file alias="QGroundControl/Controls/WeatherStation.qml">src/WeatherStation/WeatherStation.qml</file>
         <file alias="QGroundControl/Controls/WeatherStationSettings.qml">src/WeatherStation/WeatherStationSettings.qml</file>
         <file alias="QGroundControl/Controls/UsersVehicleControl.qml">src/Tsuru/UsersVehicleControl.qml</file>
+        <file alias="QGroundControl/Controls/CameraControls.qml">src/Tsuru/CameraControls.qml</file>
     </qresource>
     <qresource prefix="/json">
         <file alias="MavCmdInfoCommon.json">src/MissionManager/MavCmdInfoCommon.json</file>

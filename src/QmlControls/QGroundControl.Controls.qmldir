@@ -45,3 +45,4 @@ ViewWidget              1.0 ViewWidget.qml
 OfflineMapButton        1.0 OfflineMapButton.qml
 WeatherStationSettings  1.0 WeatherStationSettings.qml
 VehicleControl          1.0 VehicleControl.qml
+CameraControls          1.0 CameraControls.qml
