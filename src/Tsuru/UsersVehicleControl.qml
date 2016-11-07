@@ -24,6 +24,27 @@ Row {
 
     property var _activeVehicle: QGroundControl.multiVehicleManager.activeVehicle
 
+    Timer {
+        interval: 500
+        running: true
+        repeat: true
+        onTriggered: {
+            if(_activeVehicle) {
+                if(_activeVehicle.armed) {
+                    missionSelector.visible = false
+                    missionSelectorIcon.color = qgcPal.buttonText
+                    missionSelectorLabel.color = qgcPal.buttonText
+                }
+                else {
+                    cameraPopup.visible = false
+                    cameraIcon.color = qgcPal.buttonText
+                    pauseIcon.color = qgcPal.buttonText
+                }
+            }
+        }
+
+    }
+
     //Indicator button
     Item {
         id:     indicator
@@ -93,18 +114,21 @@ Row {
             height:         mainWindow.tbCellHeight
             sourceSize.height: height
             color:          qgcPal.buttonText
+            opacity:        _activeVehicle && _activeVehicle.armed ? 1 : 0.5
             anchors.verticalCenter: parent.verticalCenter
         }
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                if(cameraPopup.visible == false) {
-                    cameraIcon.color = qgcPal.buttonHighlight
-                    cameraPopup.visible = true
-                }
-                else {
-                    cameraIcon.color = qgcPal.buttonText
-                    cameraPopup.visible = false
+                if(cameraIcon.opacity == 1) {
+                    if(cameraPopup.visible == false) {
+                        cameraIcon.color = qgcPal.buttonHighlight
+                        cameraPopup.visible = true
+                    }
+                    else {
+                        cameraIcon.color = qgcPal.buttonText
+                        cameraPopup.visible = false
+                    }
                 }
             }
         }
@@ -148,9 +172,6 @@ Row {
         visible: {
             !ScreenTools.isTinyScreen
                     && _activeVehicle
-            //                    && !_activeVehicle.armed
-            //                    && _activeVehicle.homePositionAvailable
-            //                    && _activeVehicle.flightMode != "Land"
         }
         Row {
             QGCColoredImage {
@@ -162,6 +183,12 @@ Row {
                 sourceSize.height: height
                 color:          qgcPal.buttonText
                 anchors.verticalCenter: parent.verticalCenter
+                opacity: {  _activeVehicle
+                            && !_activeVehicle.armed
+                            && _activeVehicle.homePositionAvailable
+                            && _activeVehicle.flightMode != "Land"
+                            ? 1 : 0.5
+                }
             }
             QGCLabel {
                 id:             missionSelectorLabel
@@ -169,20 +196,28 @@ Row {
                 font.pointSize: ScreenTools.mediumFontPointSize
                 color:          qgcPal.buttonText
                 anchors.verticalCenter: parent.verticalCenter
+                opacity: {  _activeVehicle
+                            && !_activeVehicle.armed
+                            && _activeVehicle.homePositionAvailable
+                            && _activeVehicle.flightMode != "Land"
+                            ? 1 : 0.5
+                }
             }
         }
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                if(missionSelector.visible == false) {
-                    missionSelectorIcon.color = qgcPal.buttonHighlight
-                    missionSelectorLabel.color = qgcPal.buttonHighlight
-                    missionSelector.visible = true
-                }
-                else {
-                    missionSelectorIcon.color = qgcPal.buttonText
-                    missionSelectorLabel.color = qgcPal.buttonText
-                    missionSelector.visible = false
+                if(missionSelectorIcon.opacity == 1) {
+                    if(missionSelector.visible == false) {
+                        missionSelectorIcon.color = qgcPal.buttonHighlight
+                        missionSelectorLabel.color = qgcPal.buttonHighlight
+                        missionSelector.visible = true
+                    }
+                    else {
+                        missionSelectorIcon.color = qgcPal.buttonText
+                        missionSelectorLabel.color = qgcPal.buttonText
+                        missionSelector.visible = false
+                    }
                 }
             }
         }
@@ -209,7 +244,6 @@ Row {
                     spacing:        ScreenTools.defaultFontPixelHeight / 2
                     model:          missionListModel
                     width:          parent.width
-//                    height:         ScreenTools.defaultFontPixelHeight * 10
                     height:         { missionListModel.count <= 10
                                       ? ScreenTools.defaultFontPixelHeight * 1.5 * missionListModel.count
                                       : ScreenTools.defaultFontPixelHeight * 1.5 * 12
@@ -247,9 +281,6 @@ Row {
         visible: {
             !ScreenTools.isTinyScreen
                     && _activeVehicle
-            //                    && !_activeVehicle.armed
-            //                    && _activeVehicle.homePositionAvailable
-            //                    && _activeVehicle.flightMode != "Land"
         }
         QGCColoredImage {
             id:             startIcon
@@ -260,12 +291,20 @@ Row {
             sourceSize.height: height
             color:          qgcPal.buttonText
             anchors.verticalCenter: parent.verticalCenter
+            opacity: {  _activeVehicle
+                        && !_activeVehicle.armed
+                        && _activeVehicle.homePositionAvailable
+                        && _activeVehicle.flightMode != "Land"
+                        ? 1 : 0.5
+            }
         }
         MouseArea {
             anchors.fill:   parent
             onClicked: {
-                _activeVehicle.flightMode = "Mission"
-                _activeVehicle.armed = true
+                if(startIcon.opacity == 1) {
+                    _activeVehicle.flightMode = "Mission"
+                    _activeVehicle.armed = true
+                }
             }
         }
     }
@@ -277,9 +316,6 @@ Row {
         visible: {
             !ScreenTools.isTinyScreen
                     && _activeVehicle
-            //                    && _activeVehicle.armed
-            //                    && _activeVehicle.flightMode != "Return"
-            //                    && _activeVehicle.flightMode != "Land"
         }
 
         QGCColoredImage {
@@ -291,16 +327,24 @@ Row {
             sourceSize.height: height
             color:          qgcPal.buttonText
             anchors.verticalCenter: parent.verticalCenter
+            opacity: {  _activeVehicle
+                        && _activeVehicle.armed
+                        && _activeVehicle.flightMode != "Return"
+                        && _activeVehicle.flightMode != "Land"
+                        ? 1 : 0.5
+            }
         }
         MouseArea {
             anchors.fill:   parent
             onClicked: {
-                if (_activeVehicle.flightMode == "Mission") {
-                    _activeVehicle.flightMode = "Hold"
-                    pauseIcon.color = qgcPal.buttonHighlight
-                } else if (_activeVehicle.flightMode == "Hold") {
-                    _activeVehicle.flightMode = "Mission"
-                    pauseIcon.color = qgcPal.buttonText
+                if(pauseIcon.opacity == 1) {
+                    if (_activeVehicle.flightMode == "Mission") {
+                        _activeVehicle.flightMode = "Hold"
+                        pauseIcon.color = qgcPal.buttonHighlight
+                    } else if (_activeVehicle.flightMode == "Hold") {
+                        _activeVehicle.flightMode = "Mission"
+                        pauseIcon.color = qgcPal.buttonText
+                    }
                 }
             }
         }
@@ -313,9 +357,6 @@ Row {
         visible: {
             !ScreenTools.isTinyScreen
                     && _activeVehicle
-            //                    && _activeVehicle.armed
-            //                    && _activeVehicle.flightMode != "Return"
-            //                    && _activeVehicle.flightMode != "Land"
         }
 
         QGCColoredImage {
@@ -327,11 +368,20 @@ Row {
             sourceSize.height: height
             color:          qgcPal.buttonText
             anchors.verticalCenter: parent.verticalCenter
+            opacity: {  _activeVehicle
+                        && _activeVehicle.armed
+                        && _activeVehicle.flightMode != "Return"
+                        && _activeVehicle.flightMode != "Land"
+                        ? 1 : 0.5
+            }
         }
         MouseArea {
             anchors.fill:   parent
             onClicked: {
-                _activeVehicle.flightMode = "Return"
+                if(stopIcon.opacity == 1) {
+                    _activeVehicle.flightMode = "Return"
+                    pauseIcon.color = qgcPal.buttonText
+                }
             }
         }
     }
@@ -353,8 +403,6 @@ Row {
         visible: {
             !ScreenTools.isTinyScreen
                     && _activeVehicle
-            //                    && _activeVehicle.armed
-            //                    && _activeVehicle.flightMode != "Land"
         }
 
         QGCColoredImage {
@@ -366,11 +414,19 @@ Row {
             sourceSize.height: height
             color:          qgcPal.buttonText
             anchors.verticalCenter: parent.verticalCenter
+            opacity: {  _activeVehicle
+                        && _activeVehicle.armed
+                        && _activeVehicle.flightMode != "Land"
+                        ? 1 : 0.5
+            }
         }
         MouseArea {
             anchors.fill:   parent
             onClicked: {
-                activeVehicle.flightMode = "Land"
+                if(landIcon.opacity == 1) {
+                    activeVehicle.flightMode = "Land"
+                    pauseIcon.color = qgcPal.buttonText
+                }
             }
         }
     }
